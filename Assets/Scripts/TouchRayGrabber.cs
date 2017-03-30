@@ -4,40 +4,80 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TouchRayGrabber : MonoBehaviour {
-//	public Text text;
+
 	public bool allowRotation = true;
-//	RectTransform rectTransform;
+
+	Vector3 nextRotation;
+
+
 	void Start(){
-//		rectTransform = GetComponent<RectTransform> ();
+		nextRotation = transform.rotation.eulerAngles;
 	}
 
-	public void TouchBehaviour(bool withTouch){
+	public void TouchBehaviour(bool withTouch, Vector2 swipeLength){
 		float dir = 1;
 		if (withTouch) {
 			Touch touch = Input.touches [0];
 
-			Debug.Log (touch.deltaPosition.magnitude.ToString ());
+			Vector2 positionOnScreen = (Camera.main.WorldToScreenPoint (transform.position));
 
-			Vector2 position = (Camera.main.WorldToScreenPoint (transform.position));
-			if (Mathf.Abs (touch.deltaPosition.x) > Mathf.Abs (touch.deltaPosition.y)) {
-				if ((position - touch.position).y > 0) {
-					dir = Mathf.Sign (touch.deltaPosition.x);
+			if (swipeLength.magnitude > MasterInput.DEAD_SWIPE) {
+				if (Mathf.Abs (swipeLength.x) > Mathf.Abs (swipeLength.y)) {
+					if ((positionOnScreen - touch.position).y > 0) {
+						dir = Mathf.Sign (swipeLength.x);
+					} else {
+						dir = -Mathf.Sign (swipeLength.x);
+					}
 				} else {
-					dir = -Mathf.Sign (touch.deltaPosition.x);
+					if ((positionOnScreen - touch.position).x > 0) {
+						dir = -Mathf.Sign (swipeLength.y);
+					} else {
+						dir = Mathf.Sign (swipeLength.y);
+					}
 				}
 			} else {
-				if ((position - touch.position).x > 0) {
-					dir = -Mathf.Sign (touch.deltaPosition.y);
+				if ((positionOnScreen - touch.position).x > 0) {
+					dir = 1;
 				} else {
-					dir = Mathf.Sign (touch.deltaPosition.y);
+					dir = -1;
 				}
 			}
 
-			MasterInput.instance.DebugText ("TOUCH B: " + Input.GetTouch (0).deltaPosition + "\ndirection: " + dir);
+			MasterInput.instance.DebugText ("Magnitude: " + swipeLength.magnitude.ToString () + "\ndirection: " + dir);
 		}
 
 		if (allowRotation) {
-			iTween.RotateBy (gameObject, Vector3.forward * 0.25f * dir, 0.25f);
+			Debug.Log ("ROT" + Time.time);
+			ChangeNextRotation (Vector3.forward * 90 * dir);
+			iTween.RotateTo (gameObject, nextRotation, 0.25f);
 		}
 	}
+
+
+	void ChangeNextRotation(Vector3 value){
+		nextRotation += value;
+
+		if (nextRotation.x > 180) {
+			nextRotation.x -= 360;
+		}
+		if (nextRotation.x < -180) {
+			nextRotation.x += 360;
+		}
+
+		if (nextRotation.y > 180) {
+			nextRotation.y -= 360;
+		}
+		if (nextRotation.y < -180) {
+			nextRotation.y += 360;
+		}
+
+		if (nextRotation.z > 180) {
+			nextRotation.z -= 360;
+		}
+		if (nextRotation.z < -180) {
+			nextRotation.z += 360;
+		}
+	}
+
+
 }

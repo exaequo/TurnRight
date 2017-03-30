@@ -1,13 +1,13 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnRight", "Assembly-CSharp-firstpass.csproj", "{A2C94410-3FA4-FE99-9ECC-8600BB8D476A}"
+# Visual Studio 2008
+
+Project("{40DFA38B-645F-971C-5276-6AA367A474FD}") = "TurnRight", "Assembly-CSharp-firstpass.csproj", "{A2C94410-3FA4-FE99-9ECC-8600BB8D476A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnRight", "Assembly-CSharp.csproj", "{2890BE9E-2906-77E7-7817-EA568EC0E38A}"
+Project("{40DFA38B-645F-971C-5276-6AA367A474FD}") = "TurnRight", "Assembly-CSharp.csproj", "{2890BE9E-2906-77E7-7817-EA568EC0E38A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnRight", "Assembly-CSharp-Editor-firstpass.csproj", "{40C5E208-CC80-F901-1DE2-487438E40BD6}"
+Project("{40DFA38B-645F-971C-5276-6AA367A474FD}") = "TurnRight", "Assembly-CSharp-Editor-firstpass.csproj", "{40C5E208-CC80-F901-1DE2-487438E40BD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnRight", "Assembly-CSharp-Editor.csproj", "{80F234FC-2B63-826B-7A1C-5B88AE0EE70E}"
+Project("{40DFA38B-645F-971C-5276-6AA367A474FD}") = "TurnRight", "Assembly-CSharp-Editor.csproj", "{80F234FC-2B63-826B-7A1C-5B88AE0EE70E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,12 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class MasterInput : MonoBehaviour {
-
+	public static float DEAD_SWIPE = 1.0f;
 	public static MasterInput instance;
 
 	public Text debugText;
 
 	TouchRayGrabber current;
+
+	Vector2 touchStart;
 
 	void Awake () {
 		if (instance == null) {
@@ -18,17 +20,21 @@ public class MasterInput : MonoBehaviour {
 		}
 	}
 
+
+
 	void Update() {
 		if (Input.touchCount > 0){
 			if (Input.GetTouch(0).phase == TouchPhase.Began) {
 				current = CastRayFromPosition(Input.GetTouch(0).position, true);
+				touchStart = Input.GetTouch (0).position;
+
 				DebugText ("Casting ray " + Input.GetTouch (0).position);
 			}
 			if (Input.GetTouch(0).phase == TouchPhase.Ended){// && Input.GetTouch(0).deltaPosition.magnitude > 0) {
 //				CastRayFromPosition(Input.GetTouch(0).position, true);
 				DebugText ("Ending ray " + Input.GetTouch (0).deltaPosition);
 				if (current != null) {
-					current.TouchBehaviour (true);
+					current.TouchBehaviour (true, Input.GetTouch(0).position - touchStart);
 				}
 			}
 		}
