@@ -29,7 +29,9 @@ public class CornerScript : MonoBehaviour {
 
 		BallScript ball = col.GetComponent<BallScript> ();
 		if (ball != null) {
-			if (!ballsInside.Contains (ball) && !ball.locked) {
+			if (!ballsInside.Contains (ball) && CheckParenting(ball)) { //&& !ball.locked) {
+
+				//TODO porownac parenty
 				Debug.Log (gameObject.name + ": Collider entered" + Time.time);
 				ballsInside.Add (ball);
 				ball.onPathFinish.AddListener (OnBallPathFinish);
@@ -38,6 +40,11 @@ public class CornerScript : MonoBehaviour {
 		} 
 
 
+	}
+
+	bool CheckParenting(BallScript ball){
+
+		return GetComponentInParent<RotatingWheel> () == ball.GetComponentInParent<RotatingWheel> ();
 	}
 
 	void OnTriggerExit(Collider col){
@@ -61,22 +68,7 @@ public class CornerScript : MonoBehaviour {
 		
 
 	void OnBallPathFinish(BallScript ball){
-		Debug.Log ("Grabbed event from ball" + Time.time);
-//		if (isBeetweenTwoWheels) {
-//			if (adjacentCorner != null) {
-//				//TODO dodać kierunek
-//			} else {
-//				if (paths [FORWARD_DIRECTION] == null) {
-//					Debug.Log ("GO back");
-//					ball.StartCoroutine (ball.FollowPath (paths [BACK_DIRECTION], true));
-//				} else {
-//					Debug.Log ("GO FRONT");
-//					ball.StartCoroutine (ball.FollowPath (paths [FORWARD_DIRECTION]));
-//				}
-//				//paths [Direction.BACK];
-//			}
-//		}
-		Debug.Log("1, " + Time.time);
+
 		List<SinglePath> availPaths = new List<SinglePath> ();
 		int originDirection = -1;
 		int nextDirection = -1;
@@ -97,7 +89,7 @@ public class CornerScript : MonoBehaviour {
 			}
 		}
 
-		Debug.Log ("originDir" + originDirection);
+		//Debug.Log ("originDir" + originDirection);
 		string secondOne = "";
 		foreach (SinglePath path in availPaths) {
 			if (path != null) {
@@ -109,7 +101,7 @@ public class CornerScript : MonoBehaviour {
 			secondOne += ", ";
 		}
 
-		Debug.Log (secondOne);
+		//Debug.Log (secondOne);
 
 		if (originDirection < 0) {
 			MasterInput.instance.DebugText ("No path to go from");
@@ -127,6 +119,9 @@ public class CornerScript : MonoBehaviour {
 //				backward = true;
 //			}
 			backward = pathsReversibility[nextDirection];
+			if (adjacentCorner != null) {
+				backward = backward || adjacentCorner.pathsReversibility [nextDirection];
+			}
 
 			ball.StartCoroutine (ball.FollowPath (availPaths [nextDirection], backward));
 		}

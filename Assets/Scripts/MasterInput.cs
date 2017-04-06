@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class MasterInput : MonoBehaviour {
 	public static float DEAD_SWIPE = 1.0f;
 	public static MasterInput instance;
+
+	[HideInInspector]
+	public UnityEvent onBackPressed;
 
 	public Text debugText;
 
@@ -38,6 +42,7 @@ public class MasterInput : MonoBehaviour {
 				}
 			}
 		}
+
 
 //		if (Input.GetMouseButtonDown (0)) {
 ////			CastRayFromPosition (Input.mousePosition, false);
