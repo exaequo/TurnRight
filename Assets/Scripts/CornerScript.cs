@@ -12,6 +12,8 @@ public class CornerScript : MonoBehaviour {
 
 	[Tooltip("Right,Up,Left,Bottom")]
 	public SinglePath[] paths = {null, null, null, null};
+	[Tooltip("Right,Up,Left,Bottom")]
+	public bool[] pathsReversibility = {false, false, false, false};
 
 	List<BallScript> ballsInside = new List<BallScript> ();
 	CornerScript adjacentCorner;
@@ -22,13 +24,13 @@ public class CornerScript : MonoBehaviour {
 		CornerScript corner = col.GetComponent<CornerScript> ();
 		if (corner != null) {
 			adjacentCorner = corner;
-			Debug.Log ("Corner attached");
+//			Debug.Log ("Corner attached");
 		}
 
 		BallScript ball = col.GetComponent<BallScript> ();
 		if (ball != null) {
 			if (!ballsInside.Contains (ball) && !ball.locked) {
-				Debug.Log ("Collider entered" + Time.time);
+				Debug.Log (gameObject.name + ": Collider entered" + Time.time);
 				ballsInside.Add (ball);
 				ball.onPathFinish.AddListener (OnBallPathFinish);
 				ball.locked = true;
@@ -43,14 +45,14 @@ public class CornerScript : MonoBehaviour {
 		if (corner != null) {
 			if (corner == adjacentCorner) {
 				adjacentCorner = null;
-				Debug.Log ("Corner detached");
+//				Debug.Log ("Corner detached");
 			}
 
 		}
 
 		BallScript ball = col.GetComponent<BallScript> ();
 		if (ball != null && ballsInside.Contains (ball)) {
-			Debug.Log ("Collider exited" + Time.time);
+			Debug.Log (gameObject.name + ": Collider exited" + Time.time);
 			ballsInside.Remove (ball);
 			ball.onPathFinish.RemoveListener (OnBallPathFinish);
 			ball.locked = false;
@@ -121,9 +123,10 @@ public class CornerScript : MonoBehaviour {
 
 			Debug.Log ("3");
 //
-			if (nextDirection == BACK_DIRECTION || nextDirection == LEFT_DIRECTION) {
-				backward = true;
-			}
+//			if (nextDirection == BACK_DIRECTION || nextDirection == LEFT_DIRECTION) {
+//				backward = true;
+//			}
+			backward = pathsReversibility[nextDirection];
 
 			ball.StartCoroutine (ball.FollowPath (availPaths [nextDirection], backward));
 		}
@@ -132,3 +135,4 @@ public class CornerScript : MonoBehaviour {
 
 	}
 }
+

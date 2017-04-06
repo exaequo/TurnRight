@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class BallScript : MonoBehaviour {
 	//[HideInInspector]
 	public SinglePath currentPath;
+//	public CornerScript currentCorner;
 
 	public SinglePath path;//TODO wypierdolic <-
 	public bool locked = false;
