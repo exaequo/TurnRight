@@ -10,7 +10,7 @@ public class MasterInput : MonoBehaviour {
 
 	public Text debugText;
 
-	TouchRayGrabber current;
+	RotatingWheel current;
 
 	Vector2 touchStart;
 
@@ -28,11 +28,11 @@ public class MasterInput : MonoBehaviour {
 				current = CastRayFromPosition(Input.GetTouch(0).position, true);
 				touchStart = Input.GetTouch (0).position;
 
-				DebugText ("Casting ray " + Input.GetTouch (0).position);
+				//DebugText ("Casting ray " + Input.GetTouch (0).position);
 			}
 			if (Input.GetTouch(0).phase == TouchPhase.Ended){// && Input.GetTouch(0).deltaPosition.magnitude > 0) {
 //				CastRayFromPosition(Input.GetTouch(0).position, true);
-				DebugText ("Ending ray " + Input.GetTouch (0).deltaPosition);
+				//DebugText ("Ending ray " + Input.GetTouch (0).deltaPosition);
 				if (current != null) {
 					current.TouchBehaviour (true, Input.GetTouch(0).position - touchStart);
 				}
@@ -45,7 +45,7 @@ public class MasterInput : MonoBehaviour {
 	}
 		
 
-	TouchRayGrabber CastRayFromPosition(Vector2 pos, bool withTouch){
+	RotatingWheel CastRayFromPosition(Vector2 pos, bool withTouch){
 		PointerEventData cursor = new PointerEventData (EventSystem.current);
 		cursor.position = pos;
 		List<RaycastResult> objectsHit = new List<RaycastResult> ();
@@ -58,20 +58,25 @@ public class MasterInput : MonoBehaviour {
 
 			RectTransform rectTransform = objectsHit [i].gameObject.GetComponent<RectTransform> ();
 
-			TouchRayGrabber grabber = objectsHit [i].gameObject.GetComponent<TouchRayGrabber> ();
+			RotatingWheel grabber = objectsHit [i].gameObject.GetComponent<RotatingWheel> ();
 
 			if (grabber != null) {
-				Vector2 worldPos = Camera.main.ScreenToWorldPoint (pos);
-				Vector2 objCenterPos = objectsHit [i].gameObject.transform.position;
-				float radius = rectTransform.rect.width / Screen.width * cameraWidth / 2;
-				//				Debug.Log ("W: " + worldPos  + ", O:" + objCenterPos);
-				float distance = (worldPos - objCenterPos).magnitude;
+				Vector2 localPoint;
+				RectTransformUtility.ScreenPointToLocalPointInRectangle (rectTransform, pos, Camera.main, out localPoint);
+				Image image = objectsHit [i].gameObject.GetComponent<Image> ();
 
-				//				Debug.Log ("D: " + distance + ", R:" + radius);
-				if(distance < radius){
+				int pixelX = Mathf.RoundToInt ((((localPoint.x + (rectTransform.rect.width / 2.0f)) / (rectTransform.rect.width)) * image.sprite.texture.width));
+				int pixelY = Mathf.RoundToInt ((((localPoint.y + (rectTransform.rect.height / 2.0f)) / (rectTransform.rect.height)) * image.sprite.texture.height));
 
+				//Debug.Log ("PIXEL " + new Vector2 (pixelX, pixelY));
+
+				if (image.sprite.texture.GetPixel (pixelX, pixelY).a != 0) {
 					return grabber;
 				}
+
+				//DebugText ("LOCAL POINT " + localPoint + "width: " + rectTransform.rect.width);
+
+
 			}
 		}
 		return null;

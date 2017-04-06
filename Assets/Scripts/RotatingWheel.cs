@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TouchRayGrabber : MonoBehaviour {
+public class RotatingWheel : MonoBehaviour {
 
 	public bool allowRotation = true;
 
 	Vector3 nextRotation;
-
 
 	void Start(){
 		nextRotation = transform.rotation.eulerAngles;
@@ -43,12 +42,14 @@ public class TouchRayGrabber : MonoBehaviour {
 				}
 			}
 
-			MasterInput.instance.DebugText ("Magnitude: " + swipeLength.magnitude.ToString () + "\ndirection: " + dir);
+			//MasterInput.instance.DebugText ("Magnitude: " + swipeLength.magnitude.ToString () + "\ndirection: " + dir);
 		}
 
 		if (allowRotation) {
-			Debug.Log ("ROT" + Time.time);
+//			Debug.Log ("ROT" + Time.time);
+
 			ChangeNextRotation (Vector3.forward * 90 * dir);
+
 			iTween.RotateTo (gameObject, nextRotation, 0.25f);
 		}
 	}
