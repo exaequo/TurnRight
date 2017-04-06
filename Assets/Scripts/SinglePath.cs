@@ -23,11 +23,12 @@ public class SinglePath : MonoBehaviour {
 		if(pathVisible){
 			
 			if(transform.childCount > 0){
-				if (nodes.Count == 0) {
+				//if (nodes.Count == 0) {
+				nodes.Clear();
 					foreach (Transform child in transform) {
 						nodes.Add (child);
 					}
-				}
+				//}
 //
 				iTween.DrawPath(GetPath(), pathColor);
 			}	

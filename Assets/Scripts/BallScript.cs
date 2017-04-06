@@ -10,6 +10,7 @@ public class BallScript : MonoBehaviour {
 	public SinglePath currentPath;
 
 	public SinglePath path;//TODO wypierdolic <-
+	public bool locked = false;
 
 	public float speed = 1;
 	public float epsilon = 0.5f;
