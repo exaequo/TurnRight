@@ -28,4 +28,10 @@ public class MasterController : MonoBehaviour {
 
 		testLevel.SetupLevel ();
 	}
+
+	public void ExitLevel(){
+		if (currentLevel != null) {
+			Destroy (currentLevel.gameObject);
+		}
+	}
 }
