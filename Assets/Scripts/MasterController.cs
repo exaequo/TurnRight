@@ -25,6 +25,7 @@ public class MasterController : MonoBehaviour {
 	public void LoadLevel(LevelScript level){
 		LevelScript testLevel = (LevelScript)Instantiate (testLevelPrefab, gameCanvas.transform, false);
 		currentLevel = testLevel;
+		testLevel.transform.SetSiblingIndex (0);
 
 		testLevel.SetupLevel ();
 	}
