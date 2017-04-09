@@ -20,9 +20,7 @@ public class StarDisplay : MonoBehaviour {
 //	}
 
 	public void Init(bool value){
-		Debug.Log (value + "Init" + Time.time);
-		//frontImage.gameObject.SetActive (value);
-
+//		Debug.Log (value + "Init" + Time.time);
 		if (animator != null) {
 			animator.SetBool ("IsOn", value);
 			if (value) {
@@ -32,6 +30,8 @@ public class StarDisplay : MonoBehaviour {
 				animator.SetTrigger ("Off");
 			}
 
+		} else {
+			frontImage.gameObject.SetActive (value);
 		}
 	}
 

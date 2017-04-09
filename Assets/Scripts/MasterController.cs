@@ -11,36 +11,45 @@ public class MasterController : MonoBehaviour {
 	public List<LevelScript> levelPrefabs = new List<LevelScript> ();
 
 	public LevelScript currentLevel;
+	public GameObject showOnStart;
 	public ShowOnEndDisplay showOnEnd;
-
-	int currentLevelNumberTMP = 0;
+	public LevelSelectDisplay levelSelectDisplay;
 
 
 	void Awake () {
 		instance = this;
+		for (int i = 0; i < levelPrefabs.Count; i++) {
+			levelPrefabs [i].levelInfo.levelNumber = i;
+		}
 	}
 
 	public void ExitGame (){
 		Application.Quit ();
 	}
-
-	public void TemporaryLoadLevel(){
-		LoadLevel (levelPrefabs[currentLevelNumberTMP]);
-//		currentLevelNumberTMP = 0;
-	}
-
-	public void LoadLevel(LevelScript level){
-		LevelScript testLevel = (LevelScript)Instantiate (level, gameCanvas.transform, false);
+		
+	public void LoadLevel(LevelScript levelPref){
+		levelSelectDisplay.gameObject.SetActive (false);
+		LevelScript testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.transform, false);
 		currentLevel = testLevel;
 		//testLevel.transform.SetSiblingIndex (0);
 
 		testLevel.SetupLevel ();
+		showOnStart.SetActive (true);
 	}
 
 	public void ExitLevel(){
 		if (currentLevel != null) {
 			Destroy (currentLevel.gameObject);
 		}
+	}
+
+	public void OpenLevelSelectDisplay(){
+		levelSelectDisplay.gameObject.SetActive (true);
+		levelSelectDisplay.Init ();
+	}
+
+	public void SaveLevelInfo(LevelScript level){
+		levelPrefabs [level.levelInfo.levelNumber].levelInfo.oldScore.ChangeStarScore(level.currentScore.stars);
 	}
 
 	public void ShowEndLevelScreen(bool[] starValues){
@@ -51,10 +60,26 @@ public class MasterController : MonoBehaviour {
 	}
 
 	public void LoadNextLevel(){
+		int next = currentLevel.levelInfo.levelNumber + 1;
 		Destroy (currentLevel.gameObject);
-		if (currentLevelNumberTMP + 1 < levelPrefabs.Count) {
-			++currentLevelNumberTMP;
-			LoadLevel (levelPrefabs [currentLevelNumberTMP]);
+
+		if (next < levelPrefabs.Count) {
+			LoadLevel (levelPrefabs [next]);
 		}
+	}
+	public void ReloadLevel(){
+		int num = currentLevel.levelInfo.levelNumber;
+		Destroy (currentLevel.gameObject);
+
+		LoadLevel (levelPrefabs [num]);
+
+	}
+
+	public void ResetProgress(){
+		foreach (LevelScript level in levelPrefabs) {
+			bool[] array = { false, false, false };
+			level.levelInfo.oldScore.stars = array;
+		}
+		MasterInput.instance.DebugText ("PROGRES RESET");
 	}
 }

@@ -50,7 +50,8 @@
      <Compile Include="Assets\Scripts\BallScript.cs" />
      <Compile Include="Assets\Scripts\BallSpawner.cs" />
      <Compile Include="Assets\Scripts\CornerScript.cs" />
-     <Compile Include="Assets\Scripts\Displays\LevelCanvasDisplay.cs" />
+     <Compile Include="Assets\Scripts\Displays\LevelDisplay.cs" />
+     <Compile Include="Assets\Scripts\Displays\LevelSelectDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\ScoreDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\ShowOnEndDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\StarDisplay.cs" />

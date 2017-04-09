@@ -7,13 +7,14 @@ public class LevelScript : MonoBehaviour {
 	[System.Serializable]
 	public class LevelInfo
 	{
+		public int levelNumber = -1;
 		public Score oldScore;
+		public bool locked = true;
 	}
 
 	public static LevelScript instance;
 
 	public int[] starLevelTimes = { 30, 20, 10 };
-	public GameObject startScreen;
 
 	//TODO kolejność kulek jaka ma być na wyjściu
 
@@ -28,7 +29,8 @@ public class LevelScript : MonoBehaviour {
 	bool countTime = true;
 	float startLevelTime;
 
-
+	public Sprite levelIcon;
+	public GameObject startScreen;
 
 	void Awake () {
 		if (instance != null) {
@@ -61,6 +63,8 @@ public class LevelScript : MonoBehaviour {
 
 	public void EndLevel(){
 		countTime = false;
+		//levelInfo.oldScore = currentScore;
+		MasterController.instance.SaveLevelInfo(this);
 		MasterInput.instance.DebugText ("END: " + currentLevelTime);
 	}
 
