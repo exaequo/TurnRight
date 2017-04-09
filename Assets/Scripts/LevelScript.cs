@@ -12,7 +12,7 @@ public class LevelScript : MonoBehaviour {
 
 	public static LevelScript instance;
 
-	public float starLevelTime = 60;
+	public int[] starLevelTimes = { 30, 20, 10 };
 	public GameObject startScreen;
 
 	//TODO kolejność kulek jaka ma być na wyjściu
@@ -46,6 +46,7 @@ public class LevelScript : MonoBehaviour {
 			spawner.SpawnBall ();
 		}
 		MasterInput.instance.SetTimer (0);
+		SetStarsToTrue ();
 	}
 
 
@@ -55,6 +56,7 @@ public class LevelScript : MonoBehaviour {
 		}
 		startLevelTime = Time.time;
 		countTime = true;
+
 	}
 
 	public void EndLevel(){
@@ -66,8 +68,11 @@ public class LevelScript : MonoBehaviour {
 		if (countTime) {
 			currentLevelTime = Time.time - startLevelTime;
 
-			if (currentScore.ThirdStar && currentLevelTime > starLevelTime) {
-				currentScore.ThirdStar = false;
+//			if (currentScore.ThirdStar && currentLevelTime > starLevelTime) {
+//				currentScore.ThirdStar = false;
+//			}
+			for (int i = 0; i < 3; i++) {
+				currentScore.ChangeStar (i, currentLevelTime <= starLevelTimes [i]);
 			}
 
 			MasterInput.instance.SetTimer (currentLevelTime);
@@ -94,6 +99,13 @@ public class LevelScript : MonoBehaviour {
 
 	IEnumerator WaitToEnd(){
 		yield return new WaitForSeconds (1);
-		MasterController.instance.ShowEndLevelScreen ();
+		MasterController.instance.ShowEndLevelScreen (currentScore.stars);
+
+	}
+
+	void SetStarsToTrue(){
+		for (int i = 0; i < 3; i++) {
+			currentScore.ChangeStar (i, true);
+		}
 	}
 }

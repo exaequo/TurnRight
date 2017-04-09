@@ -24,6 +24,7 @@ public class StarDisplay : MonoBehaviour {
 		//frontImage.gameObject.SetActive (value);
 
 		if (animator != null) {
+			animator.SetBool ("IsOn", value);
 			if (value) {
 				animator.SetTrigger ("Start");
 			} else {

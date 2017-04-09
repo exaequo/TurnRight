@@ -101,6 +101,6 @@ public class MasterInput : MonoBehaviour {
 	}
 
 	public void SetTimer(float time){
-		timerText.text = time.ToString ("##.00");
+		timerText.text = time.ToString ("#0.00");
 	}
 }
