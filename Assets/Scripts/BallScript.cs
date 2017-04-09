@@ -6,28 +6,27 @@ using UnityEngine.Events;
 [System.Serializable()]public class BallEvent : UnityEvent<BallScript>{}
 
 public class BallScript : MonoBehaviour {
-	//[HideInInspector]
+	
 	public int followedPaths = 0;
 	public SinglePath currentPath;
+	public Color ballColor = Color.red;
 
-//	public CornerScript currentCorner;
-
-	//public SinglePath path;//TODO wypierdolic <-
 	public bool locked = false;
 
 	public float speed = 1;
 	public float epsilon = 0.5f;
 	[HideInInspector]
 	public BallEvent onPathFinish;
+	[HideInInspector]
+	public BallEvent onMazeFinish;
 
-	// Use this for initialization
 	void Start () {
-		//StartCoroutine(FollowPath (path));
+		GetComponent<SpriteRenderer> ().color = ballColor;
+		iTween.ScaleFrom (gameObject, Vector3.zero, 0.5f);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void End(){
+		iTween.ScaleTo (gameObject, Vector3.zero, 0.5f);
 	}
 
 	public IEnumerator FollowPath(SinglePath singlePath, bool reversed = false){
@@ -39,15 +38,13 @@ public class BallScript : MonoBehaviour {
 		} else {
 			path = singlePath.GetPathReversed ();
 		}
-		//
 
 		transform.position = path [0].position;
 		transform.parent = singlePath.transform;
 
 		int targetPoint = 1;
 		while (targetPoint < path.Length) {
-			//transform.Translate ((path [targetPoint].localPosition - transform.localPosition).normalized * Time.deltaTime * speed);
-
+			
 			transform.position += (path [targetPoint].position - transform.position).normalized * Time.deltaTime * speed;
 
 			if ((transform.position - path [targetPoint].position).magnitude < epsilon) {
@@ -55,8 +52,11 @@ public class BallScript : MonoBehaviour {
 			}
 			yield return null;
 		}
-		onPathFinish.Invoke (this);
+		if (singlePath.IsEnd) {
+			onMazeFinish.Invoke (this);
+		} else {
+			onPathFinish.Invoke (this);
+		}
 		followedPaths--;
-		//Debug.Log ("Invoked" + Time.deltaTime);
 	}
 }

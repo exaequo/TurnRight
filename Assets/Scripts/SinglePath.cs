@@ -7,6 +7,10 @@ public class SinglePath : MonoBehaviour {
 	List<Transform> nodes = new List<Transform>();
 	public Color pathColor = Color.red;
 	public bool pathVisible = true;
+
+	[SerializeField]
+	private bool isEnd = false;
+	public bool IsEnd{ get { return isEnd; } }
 	// Use this for initialization
 	void Awake () {
 		foreach (Transform child in transform) {

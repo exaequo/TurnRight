@@ -9,6 +9,8 @@ public class MasterController : MonoBehaviour {
 	public Canvas gameCanvas;
 	public LevelScript testLevelPrefab;
 	public LevelScript currentLevel;
+	public ShowOnEndDisplay showOnEnd;
+
 
 	void Awake () {
 		instance = this;
@@ -25,7 +27,7 @@ public class MasterController : MonoBehaviour {
 	public void LoadLevel(LevelScript level){
 		LevelScript testLevel = (LevelScript)Instantiate (testLevelPrefab, gameCanvas.transform, false);
 		currentLevel = testLevel;
-		testLevel.transform.SetSiblingIndex (0);
+		//testLevel.transform.SetSiblingIndex (0);
 
 		testLevel.SetupLevel ();
 	}
@@ -34,5 +36,11 @@ public class MasterController : MonoBehaviour {
 		if (currentLevel != null) {
 			Destroy (currentLevel.gameObject);
 		}
+	}
+
+	public void ShowEndLevelScreen(){
+		showOnEnd.transform.SetAsLastSibling ();
+		showOnEnd.gameObject.SetActive (true);
+		showOnEnd.GetComponent<Animator> ().SetTrigger ("Start");
 	}
 }

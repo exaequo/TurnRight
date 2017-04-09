@@ -14,6 +14,8 @@ public class MasterInput : MonoBehaviour {
 
 	public Text debugText;
 
+	public Text timerText;
+
 	RotatingWheel current;
 
 	Vector2 touchStart;
@@ -65,6 +67,12 @@ public class MasterInput : MonoBehaviour {
 
 			RotatingWheel grabber = objectsHit [i].gameObject.GetComponent<RotatingWheel> ();
 
+			RayInterrupter interrupt = objectsHit [i].gameObject.GetComponent<RayInterrupter> ();
+
+			if (interrupt != null) {
+				return null;
+			}
+
 			if (grabber != null) {
 				Vector2 localPoint;
 				RectTransformUtility.ScreenPointToLocalPointInRectangle (rectTransform, pos, Camera.main, out localPoint);
@@ -90,5 +98,9 @@ public class MasterInput : MonoBehaviour {
 	public void DebugText(string text){
 		Debug.Log (text);
 		debugText.text = text;
+	}
+
+	public void SetTimer(float time){
+		timerText.text = time.ToString ("##.00");
 	}
 }

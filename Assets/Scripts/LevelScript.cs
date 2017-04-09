@@ -23,6 +23,8 @@ public class LevelScript : MonoBehaviour {
 	public LevelInfo levelInfo;
 	public List<BallSpawner> ballSpawners = new List<BallSpawner>();
 
+	List<BallScript> balls = new List<BallScript>();
+
 	bool countTime = true;
 	float startLevelTime;
 
@@ -39,9 +41,11 @@ public class LevelScript : MonoBehaviour {
 
 	public void SetupLevel(){
 		startScreen.SetActive (true);
+		countTime = false;
 		foreach (BallSpawner spawner in ballSpawners) {
 			spawner.SpawnBall ();
 		}
+		MasterInput.instance.SetTimer (0);
 	}
 
 
@@ -50,10 +54,12 @@ public class LevelScript : MonoBehaviour {
 			spawner.StartBall ();
 		}
 		startLevelTime = Time.time;
+		countTime = true;
 	}
 
 	public void EndLevel(){
 		countTime = false;
+		MasterInput.instance.DebugText ("END: " + currentLevelTime);
 	}
 
 	void Update(){
@@ -63,7 +69,31 @@ public class LevelScript : MonoBehaviour {
 			if (currentScore.ThirdStar && currentLevelTime > starLevelTime) {
 				currentScore.ThirdStar = false;
 			}
+
+			MasterInput.instance.SetTimer (currentLevelTime);
 		}
 
+	}
+
+	public void BallCreatedNecessaryInvoke(BallScript ball){
+		ball.onMazeFinish.AddListener (OnBallMazeFinish);
+		balls.Add (ball);
+	}
+
+	void OnBallMazeFinish (BallScript ball){
+		
+		MasterInput.instance.DebugText ("BALL (" + ball.gameObject.name + ") finished");
+		balls.Remove (ball);
+		ball.End ();
+		Destroy (ball.gameObject, 1);
+		if (balls.Count == 0) {
+			EndLevel ();
+			StartCoroutine (WaitToEnd ());
+		}
+	}
+
+	IEnumerator WaitToEnd(){
+		yield return new WaitForSeconds (1);
+		MasterController.instance.ShowEndLevelScreen ();
 	}
 }

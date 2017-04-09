@@ -11,7 +11,10 @@ public class BallSpawner : MonoBehaviour {
 
 	public void SpawnBall(){
 		ball = (BallScript)Instantiate (ballToSpawn);
+		ball.transform.parent = pathToStart.transform;
 		ball.transform.position = spawnPoint.position;
+		LevelScript.instance.BallCreatedNecessaryInvoke (ball);
+
 	}
 
 	public void StartBall(){
