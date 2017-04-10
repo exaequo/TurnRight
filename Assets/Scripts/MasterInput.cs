@@ -45,12 +45,11 @@ public class MasterInput : MonoBehaviour {
 			}
 		}
 
-
 //		if (Input.GetMouseButtonDown (0)) {
 ////			CastRayFromPosition (Input.mousePosition, false);
 //		}
 	}
-		
+
 
 	RotatingWheel CastRayFromPosition(Vector2 pos, bool withTouch){
 		PointerEventData cursor = new PointerEventData (EventSystem.current);
@@ -103,4 +102,6 @@ public class MasterInput : MonoBehaviour {
 	public void SetTimer(float time){
 		timerText.text = time.ToString ("#0.00");
 	}
+
+
 }
