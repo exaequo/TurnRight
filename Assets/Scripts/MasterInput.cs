@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
 public class MasterInput : MonoBehaviour {
-	public static float DEAD_SWIPE = 1.0f;
+	public static float DEAD_SWIPE = 5.0f;
 	public static MasterInput instance;
 
 	[HideInInspector]
@@ -24,6 +24,7 @@ public class MasterInput : MonoBehaviour {
 		if (instance == null) {
 			instance = this;
 		}
+		DEAD_SWIPE *= Screen.width / 512;
 	}
 
 
