@@ -53,6 +53,7 @@ public class MasterController : MonoBehaviour {
 	}
 
 	public void ShowEndLevelScreen(bool[] starValues){
+		showOnStart.SetActive (false);
 		showOnEnd.transform.SetAsLastSibling ();
 		showOnEnd.gameObject.SetActive (true);
 		showOnEnd.starAchievability = starValues;

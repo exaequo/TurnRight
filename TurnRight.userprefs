@@ -1,20 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Displays\LevelDisplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MasterController.cs">
     <Files>
-      <File FileName="Assets\Scripts\MasterController.cs" Line="83" Column="44" />
-      <File FileName="Assets\Scripts\MasterInput.cs" Line="61" Column="79" />
-      <File FileName="Assets\Scripts\LevelScript.cs" Line="67" Column="42" />
+      <File FileName="Assets\Scripts\MasterController.cs" Line="37" Column="32" />
+      <File FileName="Assets\Scripts\MasterInput.cs" Line="27" Column="36" />
+      <File FileName="Assets\Scripts\LevelScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RotatingWheel.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SinglePath.cs" Line="13" Column="44" />
-      <File FileName="Assets\Scripts\BallScript.cs" Line="25" Column="11" />
+      <File FileName="Assets\Scripts\SinglePath.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BallScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CornerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Score.cs" Line="21" Column="28" />
-      <File FileName="Assets\Scripts\BallSpawner.cs" Line="14" Column="3" />
-      <File FileName="Assets\Scripts\Displays\StarDisplay.cs" Line="23" Column="5" />
-      <File FileName="Assets\Scripts\Displays\ShowOnEndDisplay.cs" Line="22" Column="21" />
-      <File FileName="Assets\Scripts\Displays\LevelDisplay.cs" Line="15" Column="27" />
-      <File FileName="Assets\Scripts\Displays\LevelSelectDisplay.cs" Line="21" Column="12" />
+      <File FileName="Assets\Scripts\Score.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BallSpawner.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Displays\StarDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Displays\ShowOnEndDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Displays\LevelDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Displays\LevelSelectDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FPSDisplay.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
