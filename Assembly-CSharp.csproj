@@ -39,10 +39,10 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Programy/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>E:/Programy/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Programy/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>E:/Programy/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,15 +50,18 @@
      <Compile Include="Assets\Scripts\BallScript.cs" />
      <Compile Include="Assets\Scripts\BallSpawner.cs" />
      <Compile Include="Assets\Scripts\CornerScript.cs" />
+     <Compile Include="Assets\Scripts\Displays\BallOrderDisplay.cs" />
+     <Compile Include="Assets\Scripts\Displays\BallOrderImageDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\LevelDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\LevelSelectDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\ScoreDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\ShowOnEndDisplay.cs" />
+     <Compile Include="Assets\Scripts\Displays\ShowOnFailDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\StarDisplay.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
-     <Compile Include="Assets\Scripts\LevelScript.cs" />
-     <Compile Include="Assets\Scripts\MasterController.cs" />
-     <Compile Include="Assets\Scripts\MasterInput.cs" />
+     <Compile Include="Assets\Scripts\Master\LevelScript.cs" />
+     <Compile Include="Assets\Scripts\Master\MasterController.cs" />
+     <Compile Include="Assets\Scripts\Master\MasterInput.cs" />
      <Compile Include="Assets\Scripts\RayInterrupter.cs" />
      <Compile Include="Assets\Scripts\RotatingWheel.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
@@ -66,25 +69,25 @@
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
- <HintPath>D:/Programy/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ <HintPath>E:/Programy/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

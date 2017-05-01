@@ -32,7 +32,7 @@ public class CornerScript : MonoBehaviour {
 			if (!ballsInside.Contains (ball) && CheckParenting(ball)) { //&& !ball.locked) {
 
 				//TODO porownac parenty
-				Debug.Log (gameObject.name + ": Collider entered" + Time.time);
+//				Debug.Log (gameObject.name + ": Collider entered" + Time.time);
 				ballsInside.Add (ball);
 				ball.onPathFinish.AddListener (OnBallPathFinish);
 				ball.locked = true;
@@ -59,7 +59,7 @@ public class CornerScript : MonoBehaviour {
 
 		BallScript ball = col.GetComponent<BallScript> ();
 		if (ball != null && ballsInside.Contains (ball)) {
-			Debug.Log (gameObject.name + ": Collider exited" + Time.time);
+//			Debug.Log (gameObject.name + ": Collider exited" + Time.time);
 			ballsInside.Remove (ball);
 			ball.onPathFinish.RemoveListener (OnBallPathFinish);
 			ball.locked = false;
@@ -112,9 +112,7 @@ public class CornerScript : MonoBehaviour {
 			while (availPaths [nextDirection] == null) {
 				nextDirection = (nextDirection + 1) % 4;
 			}
-
-			Debug.Log ("3");
-//
+				
 //			if (nextDirection == BACK_DIRECTION || nextDirection == LEFT_DIRECTION) {
 //				backward = true;
 //			}

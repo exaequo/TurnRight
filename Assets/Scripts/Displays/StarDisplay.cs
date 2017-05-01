@@ -8,25 +8,13 @@ public class StarDisplay : MonoBehaviour {
 	public Image backImage;
 	public Animator animator;
 
-//	public IEnumerator RemoveStar(){
-//		if (animator != null) {
-//			animator.SetTrigger ("End");
-//			yield return new WaitForSeconds (1);
-//			frontImage.gameObject.SetActive (false);
-//		} else {
-//			frontImage.gameObject.SetActive (false);
-//		}
-//		yield return null;
-//	}
-
 	public void Init(bool value){
-//		Debug.Log (value + "Init" + Time.time);
 		if (animator != null) {
 			animator.SetBool ("IsOn", value);
 			if (value) {
 				animator.SetTrigger ("Start");
 			} else {
-				Debug.Log ("OFFING");
+//				Debug.Log ("OFFING");
 				animator.SetTrigger ("Off");
 			}
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MasterController : MonoBehaviour {
+
 	public static MasterController instance;
 
 	public Canvas gameCanvas;
@@ -13,7 +14,10 @@ public class MasterController : MonoBehaviour {
 	public LevelScript currentLevel;
 	public GameObject showOnStart;
 	public ShowOnEndDisplay showOnEnd;
+	public ShowOnFailDisplay showOnFail;
 	public LevelSelectDisplay levelSelectDisplay;
+	public List<Color> ballColorCodes = new List<Color> ();
+	public GameObject showOnStartStartScreen;
 
 
 	void Awake () {
@@ -31,10 +35,11 @@ public class MasterController : MonoBehaviour {
 		levelSelectDisplay.gameObject.SetActive (false);
 		LevelScript testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.transform, false);
 		currentLevel = testLevel;
-		//testLevel.transform.SetSiblingIndex (0);
+		testLevel.transform.SetSiblingIndex (0);
 
 		testLevel.SetupLevel ();
 		showOnStart.SetActive (true);
+		showOnStartStartScreen.SetActive (true);
 	}
 
 	public void ExitLevel(){
@@ -82,5 +87,14 @@ public class MasterController : MonoBehaviour {
 			level.levelInfo.oldScore.stars = array;
 		}
 		MasterInput.instance.DebugText ("PROGRES RESET");
+	}
+
+	public void StartCurrentLevel(){
+		currentLevel.StartLevel ();
+	}
+
+	public void FailScreen(int was, int shouldve){
+		showOnFail.gameObject.SetActive (true);
+		showOnFail.Init (was, shouldve);
 	}
 }

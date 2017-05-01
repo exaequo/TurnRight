@@ -10,13 +10,14 @@ public class LevelScript : MonoBehaviour {
 		public int levelNumber = -1;
 		public Score oldScore;
 		public bool locked = true;
+
 	}
 
 	public static LevelScript instance;
 
 	public int[] starLevelTimes = { 30, 20, 10 };
 
-	//TODO kolejność kulek jaka ma być na wyjściu
+	public List<int> ballOrder = new List<int> ();
 
 	public Score currentScore;
 	public float currentLevelTime;
@@ -30,7 +31,9 @@ public class LevelScript : MonoBehaviour {
 	float startLevelTime;
 
 	public Sprite levelIcon;
-	public GameObject startScreen;
+//	public GameObject startScreen;
+	public BallOrderDisplay ballOrderDisplay;
+
 
 	void Awake () {
 		if (instance != null) {
@@ -42,13 +45,19 @@ public class LevelScript : MonoBehaviour {
 
 
 	public void SetupLevel(){
-		startScreen.SetActive (true);
+//		if (startScreen != null) {
+//			startScreen.SetActive (true);
+//		}
 		countTime = false;
 		foreach (BallSpawner spawner in ballSpawners) {
 			spawner.SpawnBall ();
 		}
 		MasterInput.instance.SetTimer (0);
 		SetStarsToTrue ();
+
+		if (ballOrderDisplay != null) {
+			ballOrderDisplay.Init (ballOrder);
+		}
 	}
 
 
@@ -61,11 +70,13 @@ public class LevelScript : MonoBehaviour {
 
 	}
 
-	public void EndLevel(){
+	public void EndLevel(bool won = true){
 		countTime = false;
 		//levelInfo.oldScore = currentScore;
-		MasterController.instance.SaveLevelInfo(this);
-		MasterInput.instance.DebugText ("END: " + currentLevelTime);
+		if (won) {
+			MasterController.instance.SaveLevelInfo (this);
+			MasterInput.instance.DebugText ("END: " + currentLevelTime);
+		}
 	}
 
 	void Update(){
@@ -90,15 +101,35 @@ public class LevelScript : MonoBehaviour {
 	}
 
 	void OnBallMazeFinish (BallScript ball){
-		
-		MasterInput.instance.DebugText ("BALL (" + ball.gameObject.name + ") finished");
-		balls.Remove (ball);
-		ball.End ();
-		Destroy (ball.gameObject, 1);
-		if (balls.Count == 0) {
-			EndLevel ();
-			StartCoroutine (WaitToEnd ());
+		if (ballOrderDisplay == null || ballOrder.Count > 0) {
+			if (ballOrderDisplay == null || ball.ballNumber == ballOrder [0]) {
+				MasterInput.instance.DebugText ("GUT BALL");
+				if (ballOrderDisplay != null) {
+					ballOrder.RemoveAt (0);
+					if (ballOrderDisplay != null) {
+						StartCoroutine (ballOrderDisplay.DestroyFirst ());
+					}
+				}
+
+				balls.Remove (ball);
+				ball.End ();
+				Destroy (ball.gameObject, 1);
+				if (balls.Count == 0) {
+					EndLevel ();
+					StartCoroutine (WaitToEnd ());
+				}
+
+			} else {
+				MasterInput.instance.DebugText ("WRONG BALL");
+				MasterController.instance.FailScreen (ball.ballNumber, ballOrder [0]);
+				EndLevel (false);
+				foreach(BallScript current in balls){
+					Destroy (current.gameObject);
+				}
+			}
 		}
+		//MasterInput.instance.DebugText ("BALL (" + ball.gameObject.name + ") finished");
+
 	}
 
 	IEnumerator WaitToEnd(){
