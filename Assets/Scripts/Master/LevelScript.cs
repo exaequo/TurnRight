@@ -13,6 +13,8 @@ public class LevelScript : MonoBehaviour {
 
 	}
 
+	public bool withBallOrderDisplay = false;
+
 	public static LevelScript instance;
 
 	public int[] starLevelTimes = { 30, 20, 10 };
@@ -32,7 +34,7 @@ public class LevelScript : MonoBehaviour {
 
 	public Sprite levelIcon;
 //	public GameObject startScreen;
-	public BallOrderDisplay ballOrderDisplay;
+	BallOrderDisplay ballOrderDisp;
 
 
 	void Awake () {
@@ -55,9 +57,15 @@ public class LevelScript : MonoBehaviour {
 		MasterInput.instance.SetTimer (0);
 		SetStarsToTrue ();
 
-		if (ballOrderDisplay != null) {
-			ballOrderDisplay.Init (ballOrder);
+		if (withBallOrderDisplay) {
+			ballOrderDisp = MasterController.instance.ballOrderDisplay;
+			ballOrderDisp.gameObject.SetActive (true);
+			ballOrderDisp.Init (ballOrder);
 		}
+
+//		if (ballOrderDisplay != null) {
+//			ballOrderDisplay.Init (ballOrder);
+//		}
 	}
 
 
@@ -101,13 +109,13 @@ public class LevelScript : MonoBehaviour {
 	}
 
 	void OnBallMazeFinish (BallScript ball){
-		if (ballOrderDisplay == null || ballOrder.Count > 0) {
-			if (ballOrderDisplay == null || ball.ballNumber == ballOrder [0]) {
-				MasterInput.instance.DebugText ("GUT BALL");
-				if (ballOrderDisplay != null) {
+		if (ballOrderDisp == null || ballOrder.Count > 0) {
+			if (ballOrderDisp == null || ball.ballNumber == ballOrder [0]) {
+//				MasterInput.instance.DebugText ("GUT BALL");
+				if (ballOrderDisp != null) {
 					ballOrder.RemoveAt (0);
-					if (ballOrderDisplay != null) {
-						StartCoroutine (ballOrderDisplay.DestroyFirst ());
+					if (ballOrderDisp != null) {
+						StartCoroutine (ballOrderDisp.DestroyFirst ());
 					}
 				}
 
@@ -120,7 +128,7 @@ public class LevelScript : MonoBehaviour {
 				}
 
 			} else {
-				MasterInput.instance.DebugText ("WRONG BALL");
+//				MasterInput.instance.DebugText ("WRONG BALL");
 				MasterController.instance.FailScreen (ball.ballNumber, ballOrder [0]);
 				EndLevel (false);
 				foreach(BallScript current in balls){

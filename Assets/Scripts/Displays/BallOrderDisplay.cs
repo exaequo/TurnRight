@@ -9,6 +9,9 @@ public class BallOrderDisplay : MonoBehaviour {
 	public BallOrderImageDisplay ballImagePrefab;
 
 	public void Init(List<int> ballOrder){
+		foreach (Transform child in transform) {
+			Destroy (child.gameObject);
+		}
 		this.ballOrder = ballOrder;
 		GridLayoutGroup grid = GetComponent<GridLayoutGroup> ();
 		float cellSize = GetComponent<RectTransform> ().rect.height * 0.8f;

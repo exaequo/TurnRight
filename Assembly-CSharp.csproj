@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Master\LevelScript.cs" />
      <Compile Include="Assets\Scripts\Master\MasterController.cs" />
      <Compile Include="Assets\Scripts\Master\MasterInput.cs" />
+     <Compile Include="Assets\Scripts\Master\Progress.cs" />
      <Compile Include="Assets\Scripts\RayInterrupter.cs" />
      <Compile Include="Assets\Scripts\RotatingWheel.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />

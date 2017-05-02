@@ -27,6 +27,7 @@ public class MasterInput : MonoBehaviour {
 		DEAD_SWIPE *= Screen.width / 512;
 	}
 
+	List<string> info = new List<string>();
 
 
 	void Update() {
@@ -58,7 +59,7 @@ public class MasterInput : MonoBehaviour {
 		List<RaycastResult> objectsHit = new List<RaycastResult> ();
 		EventSystem.current.RaycastAll(cursor, objectsHit);
 
-		float cameraWidth = Camera.main.ScreenToWorldPoint (new Vector2(Screen.width,0)).x - Camera.main.ScreenToWorldPoint (new Vector2(0,0)).x;
+//		float cameraWidth = Camera.main.ScreenToWorldPoint (new Vector2(Screen.width,0)).x - Camera.main.ScreenToWorldPoint (new Vector2(0,0)).x;
 
 
 		for (int i = 0; i < objectsHit.Count; i++) {
@@ -96,8 +97,16 @@ public class MasterInput : MonoBehaviour {
 	}
 
 	public void DebugText(string text){
+		if (info.Count > 3) {
+			info.RemoveAt (0);
+		}
+		info.Add (Time.time.ToString("#0.00") + ": " + text);
+		string result = "";
+		foreach (string txt in info) {
+			result += txt + "\n";
+		}
 		Debug.Log (text);
-		debugText.text = text;
+		debugText.text = result;
 	}
 
 	public void SetTimer(float time){
