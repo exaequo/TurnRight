@@ -8,9 +8,11 @@ public class LevelSelectDisplay : MonoBehaviour {
 	public GridLayoutGroup layout;
 	public LevelDisplay levelDisplayPrefab;
 
+	public static float SCREEN_WIDTH_RATIO = 3.5f;
+
 	public void Init(){
 		if (layout != null) {
-			float singleCell = Screen.width / 3f;
+			float singleCell = Screen.width / SCREEN_WIDTH_RATIO;
 			layout.cellSize = new Vector2 (singleCell, singleCell);
 		}
 		foreach (Transform child in content) {

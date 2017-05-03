@@ -8,7 +8,8 @@ public class LevelDisplay : MonoBehaviour {
 	public StarDisplay[] levelStars = new StarDisplay[3];
 	public Image lockedIcon;
 	LevelScript levelPrefab;
-
+	public GameObject ballOrderContent;
+	public GameObject ballOrderImagePrefab;
 
 	public void Init(LevelScript level){
 		levelPrefab = level;
@@ -21,6 +22,36 @@ public class LevelDisplay : MonoBehaviour {
 		for (int i = 0; i < 3; i++) {
 			if (levelStars [i] != null) {
 				levelStars [i].Init (level.levelInfo.oldScore.stars [i]);
+			}
+		}
+
+		if (ballOrderContent != null) {
+			if (level.withBallOrderDisplay) {
+				ballOrderContent.SetActive (true);
+
+				foreach (Transform child in ballOrderContent.transform) {
+					Destroy (child.gameObject);
+				}
+
+
+				GridLayoutGroup grid = ballOrderContent.GetComponent<GridLayoutGroup> ();
+
+				float cellSize = Screen.width / LevelSelectDisplay.SCREEN_WIDTH_RATIO / 4;
+//					//ballOrderContent.GetComponent<RectTransform> ().rect.max.y - ballOrderContent.GetComponent<RectTransform> ().;
+//
+				MasterInput.instance.DebugText("H: " + cellSize);
+//
+				grid.cellSize = new Vector2 (cellSize, cellSize);
+				grid.padding.left = (int)cellSize / 4;
+				grid.spacing = new Vector2(cellSize / 4, 0); 
+
+				foreach (int number in level.ballOrder) {
+					GameObject ballImage = Instantiate (ballOrderImagePrefab, grid.transform, false) as GameObject;
+
+					ballImage.GetComponent<Image>().color = MasterController.instance.ballColorCodes [number];
+				}
+			} else {
+				ballOrderContent.SetActive (false);
 			}
 		}
 
