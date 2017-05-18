@@ -37,7 +37,9 @@ public class BallOrderDisplay : MonoBehaviour {
 
 			yield return new WaitForSeconds (0.1f);
 		}
-		ballImages [0].outline.enabled = true;
+		if (ballImages.Count > 0) {
+			ballImages [0].outline.enabled = true;
+		}
 	}
 
 	public IEnumerator DestroyFirst(){

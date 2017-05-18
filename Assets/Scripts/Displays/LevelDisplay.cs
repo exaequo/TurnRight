@@ -36,7 +36,7 @@ public class LevelDisplay : MonoBehaviour {
 
 				GridLayoutGroup grid = ballOrderContent.GetComponent<GridLayoutGroup> ();
 
-				float cellSize = Screen.width / LevelSelectDisplay.SCREEN_WIDTH_RATIO / 4;
+				float cellSize = Screen.width / LevelSelectDisplay.SCREEN_WIDTH_RATIO / (2 + level.ballOrder.Count);
 //					//ballOrderContent.GetComponent<RectTransform> ().rect.max.y - ballOrderContent.GetComponent<RectTransform> ().;
 //
 				MasterInput.instance.DebugText("H: " + cellSize);
