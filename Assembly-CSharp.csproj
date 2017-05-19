@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Displays\ShowOnEndDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\ShowOnFailDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\StarDisplay.cs" />
+     <Compile Include="Assets\Scripts\Displays\StartScreenDisplay.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\Master\LevelScript.cs" />
      <Compile Include="Assets\Scripts\Master\MasterController.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets\Scripts\RotatingWheel.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\SinglePath.cs" />
+     <Compile Include="Assets\Scripts\StatusInformer.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">

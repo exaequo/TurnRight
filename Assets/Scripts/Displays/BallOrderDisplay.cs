@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BallOrderDisplay : MonoBehaviour {
-	List<int> ballOrder;
-	List<BallOrderImageDisplay> ballImages = new List<BallOrderImageDisplay>();
+	public List<int> ballOrder;
+	public List<BallOrderImageDisplay> ballImages = new List<BallOrderImageDisplay>();
 	public BallOrderImageDisplay ballImagePrefab;
 
 	public void Init(List<int> ballOrder){
 		foreach (Transform child in transform) {
 			Destroy (child.gameObject);
 		}
+		this.ballOrder.Clear ();
+		this.ballImages.Clear ();
 		this.ballOrder = ballOrder;
 		GridLayoutGroup grid = GetComponent<GridLayoutGroup> ();
 		float cellSize = GetComponent<RectTransform> ().rect.height * 0.8f;
@@ -37,9 +39,8 @@ public class BallOrderDisplay : MonoBehaviour {
 
 			yield return new WaitForSeconds (0.1f);
 		}
-		if (ballImages.Count > 0) {
-			ballImages [0].outline.enabled = true;
-		}
+		ballImages [0].GetOutline().enabled = true;
+
 	}
 
 	public IEnumerator DestroyFirst(){
