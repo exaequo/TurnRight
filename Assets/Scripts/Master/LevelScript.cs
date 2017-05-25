@@ -20,6 +20,7 @@ public class LevelScript : MonoBehaviour {
 	public int[] starLevelTimes = { 30, 20, 10 };
 
 	public List<int> ballOrder = new List<int> ();
+	public List<Color> ballOrderColorSav = new List<Color> ();
 
 	public Score currentScore;
 	public float currentLevelTime;
@@ -43,6 +44,15 @@ public class LevelScript : MonoBehaviour {
 			instance.gameObject.SetActive (false);
 		}
 		instance = this;
+		if (withBallOrderDisplay) {
+			foreach (int num in ballOrder) {
+				ballOrderColorSav.Add (MasterController.instance.ballColorCodes [num]);
+			}
+		} else {
+			foreach (BallSpawner spawner in ballSpawners) {
+				ballOrderColorSav.Add (MasterController.instance.ballColorCodes [spawner.ballToSpawn.ballNumber]);
+			}
+		}
 	}
 
 
@@ -142,8 +152,13 @@ public class LevelScript : MonoBehaviour {
 
 	IEnumerator WaitToEnd(){
 		yield return new WaitForSeconds (1);
-		MasterController.instance.ShowEndLevelScreen (currentScore.stars);
+		//MasterController.instance.ShowEndLevelScreen (currentScore.stars);
+		transform.SetAsLastSibling();
+		GetComponent<Animator> ().SetTrigger ("End");
+	}
 
+	public void InformMasterAboutEnding(){
+		MasterController.instance.ShowEndLevelScreen (currentScore.stars, ballOrderColorSav);
 	}
 
 	void SetStarsToTrue(){

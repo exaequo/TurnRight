@@ -22,6 +22,7 @@ public class MasterController : MonoBehaviour {
 	public GameObject showOnStart;
 	public ShowOnEndDisplay showOnEnd;
 	public ShowOnFailDisplay showOnFail;
+	public CarPaintDisplay carPaintDisplay;
 	public LevelSelectDisplay levelSelectDisplay;
 	public BallOrderDisplay ballOrderDisplay;
 	public List<Color> ballColorCodes = new List<Color> ();
@@ -66,6 +67,7 @@ public class MasterController : MonoBehaviour {
 			Destroy (currentLevel.gameObject);
 		}
 		ballOrderDisplay.gameObject.SetActive (false);
+		carPaintDisplay.gameObject.SetActive (false);
 	}
 
 	public void OpenLevelSelectDisplay(){
@@ -81,7 +83,7 @@ public class MasterController : MonoBehaviour {
 		SaveProgressToFile ();
 	}
 
-	public void ShowEndLevelScreen(bool[] starValues){
+	public void ShowEndLevelScreen(bool[] starValues, List<Color> ballColors){
 		ballOrderDisplay.gameObject.SetActive (false);
 
 		showOnStart.SetActive (false);
@@ -89,6 +91,10 @@ public class MasterController : MonoBehaviour {
 		showOnEnd.gameObject.SetActive (true);
 		showOnEnd.starAchievability = starValues;
 		showOnEnd.GetComponent<Animator> ().SetTrigger ("Start");
+
+		carPaintDisplay.gameObject.SetActive (true);
+		carPaintDisplay.Init (ballColors);
+
 	}
 
 	public void LoadNextLevel(){
@@ -98,13 +104,14 @@ public class MasterController : MonoBehaviour {
 		if (next < levelPrefabs.Count) {
 			LoadLevel (levelPrefabs [next]);
 		}
+		carPaintDisplay.gameObject.SetActive (false);
 	}
 	public void ReloadLevel(){
 		int num = currentLevel.levelInfo.levelNumber;
 		Destroy (currentLevel.gameObject);
 
 		LoadLevel (levelPrefabs [num]);
-
+		carPaintDisplay.gameObject.SetActive (false);
 	}
 
 	public void ResetProgress(){
