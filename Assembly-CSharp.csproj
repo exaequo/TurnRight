@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\CornerScript.cs" />
      <Compile Include="Assets\Scripts\Displays\BallOrderDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\BallOrderImageDisplay.cs" />
+     <Compile Include="Assets\Scripts\Displays\CarDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\CarPaintDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\LevelDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\LevelSelectDisplay.cs" />

@@ -8,13 +8,13 @@ using System.IO;
 
 public class MasterController : MonoBehaviour {
 	
-
-
 	public Progress progress = new Progress ();
 	string progressPath = "/progress.xml";
 	public static MasterController instance;
 
 	public Canvas gameCanvas;
+	public Canvas mainMenuCanvas;
+
 
 	public List<LevelScript> levelPrefabs = new List<LevelScript> ();
 
@@ -75,21 +75,30 @@ public class MasterController : MonoBehaviour {
 		levelSelectDisplay.Init ();
 	}
 
-	public void SaveLevelInfo(LevelScript level){
+	public bool SaveLevelInfo(LevelScript level){
 //		Debug.Log ("LEVEL NUM: " + level.levelInfo.levelNumber);
+		bool value = false;
 
 		levelPrefabs [level.levelInfo.levelNumber].levelInfo.oldScore.ChangeStarScore(level.currentScore.stars);
 		progress.levelInfos[level.levelInfo.levelNumber].oldScore.ChangeStarScore(level.currentScore.stars);
+		if (progress.levelInfos [level.levelInfo.levelNumber].time > level.currentLevelTime) {
+			value = true;
+			progress.levelInfos [level.levelInfo.levelNumber].time = level.currentLevelTime;
+		}
+
 		SaveProgressToFile ();
+
+		return value;
 	}
 
-	public void ShowEndLevelScreen(bool[] starValues, List<Color> ballColors){
+	public void ShowEndLevelScreen(bool[] starValues, List<Color> ballColors, bool withHighscore){
 		ballOrderDisplay.gameObject.SetActive (false);
 
 		showOnStart.SetActive (false);
 		showOnEnd.transform.SetAsLastSibling ();
 		showOnEnd.gameObject.SetActive (true);
 		showOnEnd.starAchievability = starValues;
+		showOnEnd.showHighscore = withHighscore;
 		showOnEnd.GetComponent<Animator> ().SetTrigger ("Start");
 
 		carPaintDisplay.gameObject.SetActive (true);
@@ -103,6 +112,9 @@ public class MasterController : MonoBehaviour {
 
 		if (next < levelPrefabs.Count) {
 			LoadLevel (levelPrefabs [next]);
+		} else {
+			ExitLevel ();
+			mainMenuCanvas.gameObject.SetActive (true);
 		}
 		carPaintDisplay.gameObject.SetActive (false);
 	}
@@ -122,6 +134,8 @@ public class MasterController : MonoBehaviour {
 		for (int i = 0; i < levelPrefabs.Count; i++) {
 			bool[] array = { false, false, false };
 			levelPrefabs[i].levelInfo.oldScore.stars = array;
+			levelPrefabs [i].levelInfo.time = float.MaxValue;
+			levelPrefabs [i].levelInfo.locked = true;
 			progress.levelInfos [i] = levelPrefabs [i].levelInfo;
 		}
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CarPaintDisplay : MonoBehaviour {
-	public Image carImage;
+	public CarDisplay car;
 	public Image colorBallImage;
 	Animator anim;
 	Color currentColor = Color.red;
@@ -15,11 +15,16 @@ public class CarPaintDisplay : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 	}
 
+	void OnEnable(){
+		if (anim != null) {
+			anim.SetBool ("Ended", false);
+		}
+	}
 	public IEnumerator PaintCarCoroutine(){
-		if (carImage != null) {
+		if (car != null) {
 			float paintTime = Time.time + 20 * Time.deltaTime;
 			while (Time.time <= paintTime) {
-				carImage.color = Color.Lerp (carImage.color, currentColor, 1 / 20.0f);
+				car.colorable.color = Color.Lerp (car.colorable.color, currentColor, 0.1f);
 				yield return null;
 			}
 		}
@@ -42,12 +47,27 @@ public class CarPaintDisplay : MonoBehaviour {
 				anim = GetComponent<Animator> ();
 			}
 			anim.SetTrigger ("PaintCar");
+		} else {
+			anim.SetBool ("Ended", true);
 		}
 	}
 
 	public void ChangeCarSprite(){
-		if (carImage != null) {
-			carImage.color = Color.white;
+		if (car != null) {
+			car.colorable.color = Color.white;
 		}
 	}
+
+	public void StartRotatingCarWheels(){
+		if (car != null) {
+			car.StartRotatingWheels ();
+		}
+	}
+
+	public void StopRotatingCarWheels(){
+		if (car != null) {
+			car.StopRotatingWheels ();
+		}
+	}
+
 }

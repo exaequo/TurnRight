@@ -9,6 +9,7 @@ public class LevelScript : MonoBehaviour {
 	{
 		public int levelNumber = -1;
 		public Score oldScore;
+		public float time = float.MaxValue;
 		public bool locked = true;
 
 	}
@@ -36,6 +37,7 @@ public class LevelScript : MonoBehaviour {
 	public Sprite levelIcon;
 //	public GameObject startScreen;
 	BallOrderDisplay ballOrderDisp;
+	bool newHighscoreAchieved = false;
 
 
 	void Awake () {
@@ -92,7 +94,7 @@ public class LevelScript : MonoBehaviour {
 		countTime = false;
 		//levelInfo.oldScore = currentScore;
 		if (won) {
-			MasterController.instance.SaveLevelInfo (this);
+			newHighscoreAchieved = MasterController.instance.SaveLevelInfo (this);
 			MasterInput.instance.DebugText ("END: " + currentLevelTime);
 		}
 	}
@@ -101,16 +103,12 @@ public class LevelScript : MonoBehaviour {
 		if (countTime) {
 			currentLevelTime = Time.time - startLevelTime;
 
-//			if (currentScore.ThirdStar && currentLevelTime > starLevelTime) {
-//				currentScore.ThirdStar = false;
-//			}
 			for (int i = 0; i < 3; i++) {
 				currentScore.ChangeStar (i, currentLevelTime <= starLevelTimes [i]);
 			}
 
 			MasterInput.instance.SetTimer (currentLevelTime);
 		}
-
 	}
 
 	public void BallCreatedNecessaryInvoke(BallScript ball){
@@ -158,7 +156,7 @@ public class LevelScript : MonoBehaviour {
 	}
 
 	public void InformMasterAboutEnding(){
-		MasterController.instance.ShowEndLevelScreen (currentScore.stars, ballOrderColorSav);
+		MasterController.instance.ShowEndLevelScreen (currentScore.stars, ballOrderColorSav, newHighscoreAchieved);
 	}
 
 	void SetStarsToTrue(){
