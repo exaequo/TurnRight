@@ -17,11 +17,6 @@ public class SinglePath : MonoBehaviour {
 			nodes.Add (child);
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	void OnDrawGizmosSelected(){
 		if(pathVisible){
