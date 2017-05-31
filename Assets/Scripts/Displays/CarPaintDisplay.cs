@@ -8,8 +8,9 @@ public class CarPaintDisplay : MonoBehaviour {
 	public Image colorBallImage;
 	Animator anim;
 	Color currentColor = Color.red;
-	//TODO random sprity dla różnych samochodów
 	List<Color> colorsToPaint = new List<Color>();
+	public List<CarDisplay> carDisplayPrefabs = new List<CarDisplay>();
+
 
 	void Start(){
 		anim = GetComponent<Animator> ();
@@ -38,6 +39,7 @@ public class CarPaintDisplay : MonoBehaviour {
 
 	public void PaintNextCar(){
 		if (colorsToPaint.Count > 0) {
+			
 			currentColor = colorsToPaint [0];
 			colorsToPaint.RemoveAt (0);
 			if (colorBallImage != null) {
@@ -64,10 +66,18 @@ public class CarPaintDisplay : MonoBehaviour {
 		}
 	}
 
+	CarDisplay GetRandomCarPrefab(){
+		return carDisplayPrefabs [Random.Range (0, carDisplayPrefabs.Count)];
+//		return carDisplayPrefabs[0];
+	}
 	public void StopRotatingCarWheels(){
 		if (car != null) {
 			car.StopRotatingWheels ();
 		}
+	}
+
+	public void ChangeCarTex(){
+		car.SwapInfo (GetRandomCarPrefab ());
 	}
 
 }
