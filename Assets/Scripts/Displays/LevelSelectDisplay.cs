@@ -7,6 +7,7 @@ public class LevelSelectDisplay : MonoBehaviour {
 	public Transform content;
 	public GridLayoutGroup layout;
 	public LevelDisplay levelDisplayPrefab;
+	public BackgroundAnimatorControl backgroundAnimator;
 
 	public static float SCREEN_WIDTH_RATIO = 3.5f;
 
@@ -23,6 +24,10 @@ public class LevelSelectDisplay : MonoBehaviour {
 			LevelDisplay disp = (LevelDisplay)Instantiate (levelDisplayPrefab, content, false);
 
 			disp.Init (level);
+		}
+	
+		if (backgroundAnimator != null) {
+			backgroundAnimator.StartAnimation (true);
 		}
 	}
 }

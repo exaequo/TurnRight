@@ -53,7 +53,7 @@ public class MasterController : MonoBehaviour {
 		
 	public void LoadLevel(LevelScript levelPref){
 		levelSelectDisplay.gameObject.SetActive (false);
-		LevelScript testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.transform, false);
+		LevelScript testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.GetComponentInChildren<BackgroundAnimatorControl>().transform, false);
 		currentLevel = testLevel;
 		testLevel.transform.SetSiblingIndex (0);
 
@@ -62,7 +62,16 @@ public class MasterController : MonoBehaviour {
 		showOnStartStartScreen.SetActive (true);
 	}
 
-	public void ExitLevel(){
+	public void ExitLevel(int time = 0){
+//		BackgroundAnimatorControl bgAnim = mainMenuCanvas.GetComponentInChildren<BackgroundAnimatorControl> ();
+//		if (bgAnim != null) {
+//			bgAnim.StartAnimation ();
+//		}
+		StartCoroutine(WaitToDestroyLevel(time));
+
+	}
+	IEnumerator WaitToDestroyLevel(int time){
+		yield return new WaitForSeconds (time);
 		if (currentLevel != null) {
 			Destroy (currentLevel.gameObject);
 		}
@@ -70,8 +79,15 @@ public class MasterController : MonoBehaviour {
 		carPaintDisplay.gameObject.SetActive (false);
 	}
 
+
 	public void OpenLevelSelectDisplay(){
+		BackgroundAnimatorControl bgAnim = mainMenuCanvas.GetComponentInChildren<BackgroundAnimatorControl> ();
+		if (bgAnim != null) {
+			bgAnim.EndAnimation ();
+		}
+
 		levelSelectDisplay.gameObject.SetActive (true);
+
 		levelSelectDisplay.Init ();
 	}
 
