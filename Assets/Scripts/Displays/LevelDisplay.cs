@@ -10,8 +10,10 @@ public class LevelDisplay : MonoBehaviour {
 	LevelScript levelPrefab;
 	public GameObject ballOrderContent;
 	public GameObject ballOrderImagePrefab;
+	LevelSelectDisplay master;
 
-	public void Init(LevelScript level){
+	public void Init(LevelScript level, LevelSelectDisplay initer){
+		master = initer;
 		levelPrefab = level;
 		if (levelIcon != null) {
 			levelIcon.overrideSprite = level.levelIcon;
@@ -58,8 +60,9 @@ public class LevelDisplay : MonoBehaviour {
 	}
 
 	public void InvokeLoadLevel(){
-		if (levelPrefab != null) {
-			MasterController.instance.LoadLevel (levelPrefab);
+		if (levelPrefab != null && master!=null) {
+			master.LoadChildLevel (levelPrefab);
+			//MasterController.instance.LoadLevel (levelPrefab);
 		}
 	}
 }

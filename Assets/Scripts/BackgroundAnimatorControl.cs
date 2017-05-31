@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BackgroundAnimatorControl : MonoBehaviour {
 	[HideInInspector]public Animator anim;
 	public GameObject objectToTurnOff;
+
+	[HideInInspector]public UnityEvent onShouldStartLoading;
+
 	void Start(){
 		anim = GetComponent<Animator> ();
 	}
@@ -29,5 +33,13 @@ public class BackgroundAnimatorControl : MonoBehaviour {
 
 	public void EndAnimation(){
 		anim.SetTrigger ("TurnOff");
+	}
+
+	public void SelectAnimation(){
+		anim.SetTrigger ("Select");
+	}
+
+	public void LoadingScreenTrigger(){
+		onShouldStartLoading.Invoke ();
 	}
 }

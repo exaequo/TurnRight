@@ -10,6 +10,7 @@ public class LevelSelectDisplay : MonoBehaviour {
 	public BackgroundAnimatorControl backgroundAnimator;
 
 	public static float SCREEN_WIDTH_RATIO = 3.5f;
+	LevelScript childLevelPrefabToLoad;
 
 	public void Init(){
 		if (layout != null) {
@@ -23,11 +24,30 @@ public class LevelSelectDisplay : MonoBehaviour {
 		foreach (LevelScript level in MasterController.instance.levelPrefabs) {
 			LevelDisplay disp = (LevelDisplay)Instantiate (levelDisplayPrefab, content, false);
 
-			disp.Init (level);
+			disp.Init (level, this);
 		}
 	
+//		if (backgroundAnimator != null) {
+//			backgroundAnimator.StartAnimation (true);
+//		}
+	}
+
+	public void LoadChildLevel(LevelScript levelPrefab){
 		if (backgroundAnimator != null) {
-			backgroundAnimator.StartAnimation (true);
+			childLevelPrefabToLoad = levelPrefab;
+			backgroundAnimator.onShouldStartLoading.AddListener (OnShouldLoadLevel);
+			//backgroundAnimator.anim.SetTrigger ("Select");
+			backgroundAnimator.SelectAnimation();
+		} else {
+			MasterController.instance.LoadLevel (levelPrefab);
+		}
+	}
+
+	void OnShouldLoadLevel(){
+		if (childLevelPrefabToLoad != null) {
+			MasterController.instance.LoadLevel (childLevelPrefabToLoad);
+		} else {
+			Debug.Log ("CHILD LEVEL PREFAB IS NULL");
 		}
 	}
 }
