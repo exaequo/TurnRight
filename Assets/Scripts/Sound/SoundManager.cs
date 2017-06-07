@@ -35,7 +35,9 @@ public class SoundManager : MonoBehaviour
     }
 
     void Start()
-    { }
+    {
+        PlayContinuousSound("kalimba");
+    }
 
     void Update()
     {
