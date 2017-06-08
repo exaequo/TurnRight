@@ -60,6 +60,7 @@ public class BallScript : MonoBehaviour {
 			yield return null;
 		}
 		if (singlePath.IsEnd) {
+			SoundManager.instance.PlaySingleSound ("ballFall");
 			onMazeFinish.Invoke (this);
 		} else {
 			onPathFinish.Invoke (this);

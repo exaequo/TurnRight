@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [Serializable]
 public struct SoundInfo
 {
     public string key;
     public AudioClip sound;
+	public AudioMixerGroup mixer;
 }
 
 public class SoundManager : MonoBehaviour
@@ -58,8 +60,12 @@ public class SoundManager : MonoBehaviour
         if (info.key != "")
         {
             ContinuousSound continuousSound = newContinuousSound.GetComponent<ContinuousSound>();
-            continuousSound.activeSound.key = info.key;
-            continuousSound.activeSound.sound = info.sound;
+			continuousSound.activeSound.key = info.key;
+			continuousSound.activeSound.sound = info.sound;
+			continuousSound.activeSound.mixer = info.mixer;
+			continuousSound.mixer = info.mixer;
+
+			Debug.Log (continuousSound.activeSound.mixer);
 
             activeContinuousSound.Add(newContinuousSound);
         }
@@ -92,7 +98,8 @@ public class SoundManager : MonoBehaviour
         {
             SingleSound singleSound = newSingleSound.GetComponent<SingleSound>();
             singleSound.activeSound.key = info.key;
-            singleSound.activeSound.sound = info.sound;
+			singleSound.activeSound.sound = info.sound;
+			singleSound.activeSound.mixer = info.mixer;
 
             activeSingleSound.Add(newSingleSound);
         }

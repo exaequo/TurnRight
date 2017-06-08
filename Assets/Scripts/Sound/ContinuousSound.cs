@@ -1,15 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ContinuousSound : MonoBehaviour
 {
     public SoundInfo activeSound;
-    public AudioSource playingSound;
+	public AudioSource playingSound;
+	public AudioMixerGroup mixer;
 
     void Start()
     {
         playingSound = GetComponent<AudioSource>();
+
+		Debug.Log (mixer);
+		if (mixer != null) 
+		{
+			playingSound.outputAudioMixerGroup = mixer;
+		}
         Play();
     }
 

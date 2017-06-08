@@ -80,4 +80,7 @@ public class CarPaintDisplay : MonoBehaviour {
 		car.SwapInfo (GetRandomCarPrefab ());
 	}
 
+	public void PlaySingleSoundFromManager(string name){
+		SoundManager.instance.PlaySingleSound (name);
+	}
 }
