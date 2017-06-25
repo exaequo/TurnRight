@@ -19,6 +19,7 @@ public class MasterInput : MonoBehaviour {
 	RotatingWheel current;
 
 	Vector2 touchStart;
+	Vector2 touchLast;
 
 	void Awake () {
 		if (instance == null) {
@@ -35,14 +36,23 @@ public class MasterInput : MonoBehaviour {
 			if (Input.GetTouch(0).phase == TouchPhase.Began) {
 				current = CastRayFromPosition(Input.GetTouch(0).position, true);
 				touchStart = Input.GetTouch (0).position;
-
+				touchLast = touchStart;
 				//DebugText ("Casting ray " + Input.GetTouch (0).position);
 			}
+
+			if (Input.GetTouch(0).phase == TouchPhase.Moved) {
+				Vector2 touchCurrent = Input.GetTouch (0).position;
+				if (current != null) {
+					current.TouchSwipeBehaviour (touchCurrent - touchLast);
+				}
+				touchLast = touchCurrent;
+			}
+
 			if (Input.GetTouch(0).phase == TouchPhase.Ended){// && Input.GetTouch(0).deltaPosition.magnitude > 0) {
 //				CastRayFromPosition(Input.GetTouch(0).position, true);
 				//DebugText ("Ending ray " + Input.GetTouch (0).deltaPosition);
 				if (current != null) {
-					current.TouchBehaviour (true, Input.GetTouch(0).position - touchStart);
+					current.TouchEndBehaviour (true, Input.GetTouch(0).position - touchStart);
 				}
 			}
 		}

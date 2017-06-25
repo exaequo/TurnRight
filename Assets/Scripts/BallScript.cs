@@ -54,7 +54,7 @@ public class BallScript : MonoBehaviour {
 			
 			transform.position += (path [targetPoint].position - transform.position).normalized * Time.deltaTime * speed;
 
-			if ((transform.position - path [targetPoint].position).magnitude < (epsilon / Time.deltaTime) / 60) {
+			if ((transform.position - path [targetPoint].position).magnitude < (epsilon / Time.deltaTime) / (1/Time.deltaTime)) {
 				targetPoint++;
 			}
 			yield return null;
