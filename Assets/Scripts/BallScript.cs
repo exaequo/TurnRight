@@ -15,7 +15,7 @@ public class BallScript : MonoBehaviour {
 	public bool locked = false;
 
 	public float speed = 1;
-	float epsilon = 0.01f;
+	public float epsilon = 0.01f;
 	[HideInInspector]
 	public BallEvent onPathFinish;
 	[HideInInspector]
@@ -54,7 +54,7 @@ public class BallScript : MonoBehaviour {
 			
 			transform.position += (path [targetPoint].position - transform.position).normalized * Time.deltaTime * speed;
 
-			if ((transform.position - path [targetPoint].position).magnitude < (epsilon / Time.deltaTime) / (1/Time.deltaTime)) {
+			if ((transform.position - path [targetPoint].position).magnitude < (epsilon * Time.deltaTime)) {
 				targetPoint++;
 			}
 			yield return null;
