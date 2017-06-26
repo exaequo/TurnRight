@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelDisplay : MonoBehaviour {
 	public Image levelIcon;
+	public Text levelNumberText;
 	public StarDisplay[] levelStars = new StarDisplay[3];
 	public Image lockedIcon;
 	LevelScript levelPrefab;
@@ -25,6 +26,10 @@ public class LevelDisplay : MonoBehaviour {
 			if (levelStars [i] != null) {
 				levelStars [i].Init (level.levelInfo.oldScore.stars [i]);
 			}
+		}
+
+		if (levelNumberText != null) {
+			levelNumberText.text = "" + (level.levelInfo.levelNumber + 1);
 		}
 
 		if (ballOrderContent != null) {

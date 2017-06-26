@@ -9,7 +9,7 @@ public class LevelSelectDisplay : MonoBehaviour {
 	public LevelDisplay levelDisplayPrefab;
 	public BackgroundAnimatorControl backgroundAnimator;
 
-	public static float SCREEN_WIDTH_RATIO = 3.5f;
+	public static float SCREEN_WIDTH_RATIO = 5.5f;
 	LevelScript childLevelPrefabToLoad;
 
 	public void Init(){
