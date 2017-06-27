@@ -32,6 +32,8 @@ public class MasterController : MonoBehaviour {
 	public Image lastLevelImage;
 	public Text playLevelText;
 
+	public static float GAME_SPEED = 1;
+
 	bool canLoadLevel = true;
 	public bool CanLoadLevel{
 		get{ return canLoadLevel; }
@@ -259,7 +261,9 @@ public class MasterController : MonoBehaviour {
 	}
 
 	public void GameSpeedChange(float value){
-		Time.timeScale = value;
+//		Time.timeScale = value;
+		GAME_SPEED = value;
+
 //		BallScript.EPSILON = BallScript.DEFAULT_EPSILON;
 	}
 

@@ -56,7 +56,7 @@ public class BallScript : MonoBehaviour {
 		int targetPoint = 1;
 		while (targetPoint < path.Length) {
 			
-			transform.position += (path [targetPoint].position - transform.position).normalized * Time.deltaTime * speed;
+			transform.position += (path [targetPoint].position - transform.position).normalized * Time.deltaTime * speed * MasterController.GAME_SPEED;
 
 			if ((transform.position - path [targetPoint].position).magnitude < (EPSILON * Time.deltaTime)) {
 				targetPoint++;
