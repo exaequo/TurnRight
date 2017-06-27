@@ -43,6 +43,12 @@ public class LevelSelectDisplay : MonoBehaviour {
 		}
 	}
 
+	public void LoadCurrentLevel(){
+		if (MasterController.instance.CanLoadLevel) {
+			LoadChildLevel (MasterController.instance.GetNextLevelToLoad ());
+		}
+	}
+
 	void OnShouldLoadLevel(){
 		if (childLevelPrefabToLoad != null) {
 			MasterController.instance.LoadLevel (childLevelPrefabToLoad);
@@ -50,4 +56,5 @@ public class LevelSelectDisplay : MonoBehaviour {
 			Debug.Log ("CHILD LEVEL PREFAB IS NULL");
 		}
 	}
+
 }

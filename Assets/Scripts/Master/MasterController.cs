@@ -27,7 +27,15 @@ public class MasterController : MonoBehaviour {
 	public BallOrderDisplay ballOrderDisplay;
 	public List<Color> ballColorCodes = new List<Color> ();
 	public GameObject showOnStartStartScreen;
+	public Transform levelParent;
 
+	public Image lastLevelImage;
+	public Text playLevelText;
+
+	bool canLoadLevel = true;
+	public bool CanLoadLevel{
+		get{ return canLoadLevel; }
+	}
 
 	void Awake () {
 		instance = this;
@@ -38,7 +46,6 @@ public class MasterController : MonoBehaviour {
 			}
 			SaveProgressToFile ();
 		}
-
 
 		for (int i = 0; i < levelPrefabs.Count; i++) {
 			levelPrefabs [i].levelInfo.levelNumber = i;
@@ -52,6 +59,7 @@ public class MasterController : MonoBehaviour {
 	}
 		
 	public void LoadLevel(LevelScript levelPref){
+		
 		levelSelectDisplay.gameObject.SetActive (false);
 		LevelScript testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.GetComponentInChildren<BackgroundAnimatorControl>().transform, false);
 		currentLevel = testLevel;
@@ -60,6 +68,13 @@ public class MasterController : MonoBehaviour {
 		testLevel.SetupLevel ();
 		showOnStart.SetActive (true);
 		showOnStartStartScreen.SetActive (true);
+
+		if (levelParent != null) {
+			foreach (Transform child in levelParent) {
+				Destroy (child.gameObject);
+			}
+			testLevel.transform.parent = levelParent;
+		}
 	}
 
 	public void ExitLevel(int time = 0){
@@ -102,7 +117,13 @@ public class MasterController : MonoBehaviour {
 			progress.levelInfos [level.levelInfo.levelNumber].time = level.currentLevelTime;
 		}
 
+		if (progress.lastWonLevel < level.levelInfo.levelNumber) {
+			progress.lastWonLevel = level.levelInfo.levelNumber;
+		}
+
 		SaveProgressToFile ();
+
+		UpdateOnMenuItems ();
 
 		return value;
 	}
@@ -155,7 +176,10 @@ public class MasterController : MonoBehaviour {
 			progress.levelInfos [i] = levelPrefabs [i].levelInfo;
 		}
 
+		progress.lastWonLevel = -1;
 		SaveProgressToFile ();
+
+		UpdateOnMenuItems ();
 //		MasterInput.instance.DebugText ("PROGRES RESET");
 	}
 
@@ -189,9 +213,31 @@ public class MasterController : MonoBehaviour {
 				levelPrefabs [i].levelInfo = progress.levelInfos [i];
 			}
 			MasterInput.instance.DebugText ("LOAD: " + progress.PrintInfo ());
+
+			UpdateOnMenuItems ();
+
 			return true;
 		}
 		return false;
+	}
+
+	void UpdateOnMenuItems(){
+		if (lastLevelImage != null) {
+			int which = progress.lastWonLevel + 1;
+			if (which >= levelPrefabs.Count) {
+				which = levelPrefabs.Count - 1;
+			}
+			lastLevelImage.overrideSprite = levelPrefabs [which].levelIcon;
+		}
+
+		if (playLevelText != null) {
+			Debug.Log ("HERE1");
+			string text = "CONTINUE";
+			if (progress.lastWonLevel < 0) {
+				text = "NEW GAME";
+			}
+			playLevelText.text = text;
+		}
 	}
 
 	public void SaveProgressToFile(){
@@ -210,4 +256,26 @@ public class MasterController : MonoBehaviour {
 		MasterInput.instance.DebugText ("SAVE: " + this.progress.PrintInfo ());
 //		MasterInput.instance.DebugText ("Progress saved");
 	}
+
+	public void GameSpeedChange(float value){
+		Time.timeScale = value;
+	}
+
+	public LevelScript GetNextLevelToLoad(){
+		return levelPrefabs [progress.lastWonLevel + 1];
+	}
+	public void WaitToTurnOffMainMenuCanvas(float time){
+		canLoadLevel = false;
+		StartCoroutine (WaitToTurnOffMainMenuCanvasCoroutine (time));	
+	}
+
+	IEnumerator WaitToTurnOffMainMenuCanvasCoroutine(float time){
+		yield return new WaitForSeconds (time);
+		canLoadLevel = true;
+		mainMenuCanvas.gameObject.SetActive (false);
+	}
+
+//	public void ContinueNextLevel(){
+//		LoadLevel (levelPrefabs [Mathf.Clamp (progress.lastWonLevel + 1, 0, levelPrefabs.Count - 1)]);
+//	}
 }

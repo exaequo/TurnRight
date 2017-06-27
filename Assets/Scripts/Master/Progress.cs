@@ -7,8 +7,10 @@ public class Progress{
 
 	public List<LevelScript.LevelInfo> levelInfos = new List<LevelScript.LevelInfo> ();
 
+	public int lastWonLevel = 0;
+
 	public string PrintInfo(){
-		string mess = "";
+		string mess = "" + lastWonLevel + ", ";
 		foreach (LevelScript.LevelInfo info in levelInfos) {
 			mess += info.levelNumber + ": " + ParseBool(info.oldScore.stars [0]) + ", " + ParseBool(info.oldScore.stars [1]) + ", " + ParseBool(info.oldScore.stars [2]) + "||";
 		}
@@ -28,5 +30,6 @@ public class Progress{
 		foreach (LevelScript.LevelInfo info in progress.levelInfos) {
 			levelInfos.Add (info);
 		}
+		lastWonLevel = progress.lastWonLevel;
 	}
 }

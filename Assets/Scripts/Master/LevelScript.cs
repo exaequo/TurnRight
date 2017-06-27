@@ -91,6 +91,7 @@ public class LevelScript : MonoBehaviour {
 	}
 
 	public void EndLevel(bool won = true){
+		MasterController.instance.GameSpeedChange (1);
 		countTime = false;
 		//levelInfo.oldScore = currentScore;
 		if (won) {
