@@ -73,7 +73,7 @@ public class MasterController : MonoBehaviour {
 			foreach (Transform child in levelParent) {
 				Destroy (child.gameObject);
 			}
-			testLevel.transform.parent = levelParent;
+			testLevel.transform.SetParent (levelParent);
 		}
 	}
 
@@ -138,8 +138,10 @@ public class MasterController : MonoBehaviour {
 		showOnEnd.showHighscore = withHighscore;
 		showOnEnd.GetComponent<Animator> ().SetTrigger ("Start");
 
-		carPaintDisplay.gameObject.SetActive (true);
-		carPaintDisplay.Init (ballColors);
+//		carPaintDisplay.gameObject.SetActive (true);
+//		carPaintDisplay.Init (ballColors);
+
+		//TODO here dać highscore display
 
 	}
 
@@ -258,6 +260,7 @@ public class MasterController : MonoBehaviour {
 
 	public void GameSpeedChange(float value){
 		Time.timeScale = value;
+		BallScript.EPSILON = BallScript.DEFAULT_EPSILON * Mathf.Sqrt(value);
 	}
 
 	public LevelScript GetNextLevelToLoad(){

@@ -15,6 +15,8 @@ public class BallScript : MonoBehaviour {
 	public bool locked = false;
 
 	public float speed = 1;
+	public static float EPSILON = 1f;
+	public static float DEFAULT_EPSILON = 1f;
 	public float epsilon = 0.01f;
 	[HideInInspector]
 	public BallEvent onPathFinish;
@@ -29,6 +31,8 @@ public class BallScript : MonoBehaviour {
 		}
 		iTween.ScaleFrom (gameObject, Vector3.zero, 0.5f);
 
+		DEFAULT_EPSILON = epsilon;
+		EPSILON = epsilon;
 
 	}
 
@@ -54,7 +58,7 @@ public class BallScript : MonoBehaviour {
 			
 			transform.position += (path [targetPoint].position - transform.position).normalized * Time.deltaTime * speed;
 
-			if ((transform.position - path [targetPoint].position).magnitude < (epsilon * Time.deltaTime)) {
+			if ((transform.position - path [targetPoint].position).magnitude < (EPSILON * Time.deltaTime)) {
 				targetPoint++;
 			}
 			yield return null;
