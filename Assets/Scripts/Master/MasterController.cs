@@ -231,7 +231,6 @@ public class MasterController : MonoBehaviour {
 		}
 
 		if (playLevelText != null) {
-			Debug.Log ("HERE1");
 			string text = "CONTINUE";
 			if (progress.lastWonLevel < 0) {
 				text = "NEW GAME";
