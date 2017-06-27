@@ -22,7 +22,7 @@ public class MasterController : MonoBehaviour {
 	public GameObject showOnStart;
 	public ShowOnEndDisplay showOnEnd;
 	public ShowOnFailDisplay showOnFail;
-	public CarPaintDisplay carPaintDisplay;
+//	public CarPaintDisplay carPaintDisplay;
 	public LevelSelectDisplay levelSelectDisplay;
 	public BallOrderDisplay ballOrderDisplay;
 	public List<Color> ballColorCodes = new List<Color> ();
@@ -91,7 +91,7 @@ public class MasterController : MonoBehaviour {
 			Destroy (currentLevel.gameObject);
 		}
 		ballOrderDisplay.gameObject.SetActive (false);
-		carPaintDisplay.gameObject.SetActive (false);
+//		carPaintDisplay.gameObject.SetActive (false);
 	}
 
 
@@ -155,14 +155,14 @@ public class MasterController : MonoBehaviour {
 			ExitLevel ();
 			mainMenuCanvas.gameObject.SetActive (true);
 		}
-		carPaintDisplay.gameObject.SetActive (false);
+//		carPaintDisplay.gameObject.SetActive (false);
 	}
 	public void ReloadLevel(){
 		int num = currentLevel.levelInfo.levelNumber;
 		Destroy (currentLevel.gameObject);
 
 		LoadLevel (levelPrefabs [num]);
-		carPaintDisplay.gameObject.SetActive (false);
+//		carPaintDisplay.gameObject.SetActive (false);
 	}
 
 	public void ResetProgress(){
@@ -260,7 +260,7 @@ public class MasterController : MonoBehaviour {
 
 	public void GameSpeedChange(float value){
 		Time.timeScale = value;
-		BallScript.EPSILON = BallScript.DEFAULT_EPSILON / Mathf.Sqrt(value);
+//		BallScript.EPSILON = BallScript.DEFAULT_EPSILON;
 	}
 
 	public LevelScript GetNextLevelToLoad(){
