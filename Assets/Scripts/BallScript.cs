@@ -24,11 +24,11 @@ public class BallScript : MonoBehaviour {
 	public BallEvent onMazeFinish;
 	SinglePath lastPath;
 
-	Vector3 lastPos;
-	int stationaryCount;
-	bool lastPathReversity;
-
-	static float RESTART_EPSILON = 0.0001f;
+//	Vector3 lastPos;
+//	int stationaryCount;
+//	bool lastPathReversity;
+//
+//	static float RESTART_EPSILON = 0.0001f;
 
 	void Start () {
 
@@ -41,32 +41,32 @@ public class BallScript : MonoBehaviour {
 
 		DEFAULT_EPSILON = epsilon;
 		EPSILON = epsilon;
-		lastPos = transform.position;
+//		lastPos = transform.position;
 	}
 
 	public void End(){
 		iTween.ScaleTo (gameObject, Vector3.zero, 0.5f);
 	}
 
-	void FixedUpdate(){
-		if ((lastPos - transform.position).magnitude <= RESTART_EPSILON) {
-			stationaryCount++;
-			CheckStationaryCount ();
-		}
-		lastPos = transform.position;
-	}
-
-	void CheckStationaryCount(){
-		if (stationaryCount > 3) {
-			stationaryCount = 0;
-			lastPos = transform.position;
-			StartCoroutine (FollowPath (currentPath, !lastPathReversity));
-		}
-	}
+//	void FixedUpdate(){
+//		if ((lastPos - transform.position).magnitude <= RESTART_EPSILON) {
+//			stationaryCount++;
+//			CheckStationaryCount ();
+//		}
+//		lastPos = transform.position;
+//	}
+//
+//	void CheckStationaryCount(){
+//		if (stationaryCount > 30) {
+//			stationaryCount = 0;
+//			lastPos = transform.position;
+//			StartCoroutine (FollowPath (currentPath, !lastPathReversity));
+//		}
+//	}
 
 	public IEnumerator FollowPath(SinglePath singlePath, bool reversed = false){
 		if (singlePath != null) {
-			lastPathReversity = reversed;
+//			lastPathReversity = reversed;
 			followedPaths++;
 			currentPath = singlePath;
 			Transform[] path = new Transform[0];
