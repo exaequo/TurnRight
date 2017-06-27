@@ -262,7 +262,7 @@ public class MasterController : MonoBehaviour {
 	}
 
 	public void GameSpeedChange(float value){
-//		Time.timeScale = value;
+		Time.timeScale = value;
 		GAME_SPEED = value;
 
 		BallScript.EPSILON = BallScript.DEFAULT_EPSILON * value;
