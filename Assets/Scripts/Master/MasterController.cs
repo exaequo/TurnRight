@@ -39,6 +39,7 @@ public class MasterController : MonoBehaviour {
 		get{ return canLoadLevel; }
 	}
 
+
 	void Awake () {
 		instance = this;
 		if (!LoadProgressFromFile ()) {
