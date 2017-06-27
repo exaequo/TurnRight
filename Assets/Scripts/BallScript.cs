@@ -27,11 +27,11 @@ public class BallScript : MonoBehaviour {
 	Vector3 lastPos;
 	int stationaryCount;
 	bool lastPathReversity;
-	public float restartEpsilonPercent = 0.001f;
-	static float RESTART_EPSILON = 0.001f;
+
+	static float RESTART_EPSILON = 0.0001f;
 
 	void Start () {
-		RESTART_EPSILON = Screen.width * restartEpsilonPercent;
+
 		if (ballNumber < MasterController.instance.ballColorCodes.Count) {
 			GetComponent<SpriteRenderer> ().color = MasterController.instance.ballColorCodes [ballNumber];
 		} else {
