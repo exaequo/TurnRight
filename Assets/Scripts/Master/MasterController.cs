@@ -264,7 +264,7 @@ public class MasterController : MonoBehaviour {
 //		Time.timeScale = value;
 		GAME_SPEED = value;
 
-//		BallScript.EPSILON = BallScript.DEFAULT_EPSILON;
+		BallScript.EPSILON = BallScript.DEFAULT_EPSILON * value;
 	}
 
 	public LevelScript GetNextLevelToLoad(){
