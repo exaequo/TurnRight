@@ -260,7 +260,7 @@ public class MasterController : MonoBehaviour {
 
 	public void GameSpeedChange(float value){
 		Time.timeScale = value;
-		BallScript.EPSILON = BallScript.DEFAULT_EPSILON * Mathf.Sqrt(value);
+		BallScript.EPSILON = BallScript.DEFAULT_EPSILON / Mathf.Sqrt(value);
 	}
 
 	public LevelScript GetNextLevelToLoad(){
