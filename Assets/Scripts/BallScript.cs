@@ -22,6 +22,11 @@ public class BallScript : MonoBehaviour {
 	public BallEvent onPathFinish;
 	[HideInInspector]
 	public BallEvent onMazeFinish;
+	SinglePath lastPath;
+
+	Vector3 lastPos;
+	int stationaryCount;
+	bool lastPathReversity;
 
 	void Start () {
 		if (ballNumber < MasterController.instance.ballColorCodes.Count) {
@@ -40,7 +45,22 @@ public class BallScript : MonoBehaviour {
 		iTween.ScaleTo (gameObject, Vector3.zero, 0.5f);
 	}
 
+	void FixedUpdate(){
+		if ((lastPos - transform.position).magnitude <= 0.01f) {
+			stationaryCount++;
+			CheckStationaryCount ();
+		}
+	}
+
+	void CheckStationaryCount(){
+		if (stationaryCount > 3) {
+			stationaryCount = 0;
+			StartCoroutine (FollowPath (currentPath, !lastPathReversity));
+		}
+	}
+
 	public IEnumerator FollowPath(SinglePath singlePath, bool reversed = false){
+		lastPathReversity = reversed;
 		followedPaths++;
 		currentPath = singlePath;
 		Transform[] path = new Transform[0];
