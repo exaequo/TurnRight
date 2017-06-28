@@ -9,6 +9,7 @@ public class LevelScript : MonoBehaviour {
 	{
 		public int levelNumber = -1;
 		public Score oldScore;
+
 		public float time = float.MaxValue;
 		public bool locked = true;
 
@@ -24,6 +25,7 @@ public class LevelScript : MonoBehaviour {
 	public List<Color> ballOrderColorSav = new List<Color> ();
 
 	public Score currentScore;
+	public SingleHighscore currentHighscore = new SingleHighscore();
 	public float currentLevelTime;
 
 	public LevelInfo levelInfo;
@@ -39,6 +41,7 @@ public class LevelScript : MonoBehaviour {
 	BallOrderDisplay ballOrderDisp;
 	bool newHighscoreAchieved = false;
 
+	float speedChangeTimerStart = -1;
 
 	void Awake () {
 		if (instance != null) {
@@ -55,8 +58,20 @@ public class LevelScript : MonoBehaviour {
 				ballOrderColorSav.Add (MasterController.instance.ballColorCodes [spawner.ballToSpawn.ballNumber]);
 			}
 		}
+		MasterController.instance.onGameSpeedChange.AddListener (OnGameSpeedChange);
 	}
 
+	void OnGameSpeedChange(float value){
+		if (value != 1f) {
+			
+			speedChangeTimerStart = currentLevelTime;
+		} else {
+			if (speedChangeTimerStart != -1) {
+				currentHighscore.speedUpTime += (currentLevelTime - speedChangeTimerStart);
+				speedChangeTimerStart = -1;
+			}
+		}
+	}
 
 	public void SetupLevel(){
 //		if (startScreen != null) {
@@ -95,6 +110,9 @@ public class LevelScript : MonoBehaviour {
 		countTime = false;
 		//levelInfo.oldScore = currentScore;
 		if (won) {
+			currentHighscore.time = currentLevelTime;
+			currentHighscore.date = System.DateTime.Now.ToString ();
+			currentHighscore.speedUpTime = (currentHighscore.speedUpTime / currentLevelTime) * 100;
 			newHighscoreAchieved = MasterController.instance.SaveLevelInfo (this);
 			MasterInput.instance.DebugText ("END: " + currentLevelTime);
 		}

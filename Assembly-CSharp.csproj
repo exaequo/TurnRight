@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Displays\StarDisplay.cs" />
      <Compile Include="Assets\Scripts\Displays\StartScreenDisplay.cs" />
      <Compile Include="Assets\Scripts\FPSDisplay.cs" />
+     <Compile Include="Assets\Scripts\HighscoreDisplay.cs" />
      <Compile Include="Assets\Scripts\Master\LevelScript.cs" />
      <Compile Include="Assets\Scripts\Master\MasterController.cs" />
      <Compile Include="Assets\Scripts\Master\MasterInput.cs" />
@@ -70,6 +71,7 @@
      <Compile Include="Assets\Scripts\RayInterrupter.cs" />
      <Compile Include="Assets\Scripts\RotatingWheel.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
+     <Compile Include="Assets\Scripts\SingleHighscoreDisplay.cs" />
      <Compile Include="Assets\Scripts\SinglePath.cs" />
      <Compile Include="Assets\Scripts\Sound\ContinuousSound.cs" />
      <Compile Include="Assets\Scripts\Sound\SingleSound.cs" />

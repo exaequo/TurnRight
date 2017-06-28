@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.Serialization;
 using System.Xml.Serialization;
 using System.IO;
+using UnityEngine.Events;
 
+[System.Serializable()]public class FloatEvent : UnityEvent<float>{}
 public class MasterController : MonoBehaviour {
 	
 	public Progress progress = new Progress ();
@@ -25,6 +27,7 @@ public class MasterController : MonoBehaviour {
 //	public CarPaintDisplay carPaintDisplay;
 	public LevelSelectDisplay levelSelectDisplay;
 	public BallOrderDisplay ballOrderDisplay;
+	public HighscoreDisplay highscoreDiplay;
 	public List<Color> ballColorCodes = new List<Color> ();
 	public GameObject showOnStartStartScreen;
 	public Transform levelParent;
@@ -33,6 +36,8 @@ public class MasterController : MonoBehaviour {
 	public Text playLevelText;
 
 	public static float GAME_SPEED = 1;
+
+	[HideInInspector]public FloatEvent onGameSpeedChange;
 
 	bool canLoadLevel = true;
 	public bool CanLoadLevel{
@@ -115,6 +120,10 @@ public class MasterController : MonoBehaviour {
 
 		levelPrefabs [level.levelInfo.levelNumber].levelInfo.oldScore.ChangeStarScore(level.currentScore.stars);
 		progress.levelInfos[level.levelInfo.levelNumber].oldScore.ChangeStarScore(level.currentScore.stars);
+
+//		levelPrefabs [level.levelInfo.levelNumber].levelInfo.oldScore.highscores.Add (level.currentHighscore); 
+		progress.levelInfos[level.levelInfo.levelNumber].oldScore.AddHighscore (level.currentHighscore);
+
 		if (progress.levelInfos [level.levelInfo.levelNumber].time > level.currentLevelTime) {
 			value = true;
 			progress.levelInfos [level.levelInfo.levelNumber].time = level.currentLevelTime;
@@ -125,6 +134,7 @@ public class MasterController : MonoBehaviour {
 		}
 
 		SaveProgressToFile ();
+//		LoadProgressFromFile ();
 
 		UpdateOnMenuItems ();
 
@@ -144,6 +154,8 @@ public class MasterController : MonoBehaviour {
 //		carPaintDisplay.gameObject.SetActive (true);
 //		carPaintDisplay.Init (ballColors);
 
+		highscoreDiplay.gameObject.SetActive (true);
+		highscoreDiplay.Init (progress.levelInfos [currentLevel.levelInfo.levelNumber].oldScore);
 		//TODO here dać highscore display
 
 	}
@@ -176,6 +188,7 @@ public class MasterController : MonoBehaviour {
 		for (int i = 0; i < levelPrefabs.Count; i++) {
 			bool[] array = { false, false, false };
 			levelPrefabs[i].levelInfo.oldScore.stars = array;
+			levelPrefabs [i].levelInfo.oldScore.highscores.Clear ();
 			levelPrefabs [i].levelInfo.time = float.MaxValue;
 			levelPrefabs [i].levelInfo.locked = true;
 			progress.levelInfos [i] = levelPrefabs [i].levelInfo;
@@ -262,6 +275,7 @@ public class MasterController : MonoBehaviour {
 	}
 
 	public void GameSpeedChange(float value){
+		onGameSpeedChange.Invoke (value);
 		Time.timeScale = value;
 		GAME_SPEED = value;
 

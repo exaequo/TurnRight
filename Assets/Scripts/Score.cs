@@ -5,8 +5,17 @@ using UnityEngine.Events;
 
 [System.Serializable()]public class IntBoolEvent : UnityEvent<int,bool>{}
 [System.Serializable]
+public class SingleHighscore{
+	public string date = System.DateTime.Now.ToString();
+	public float time = 0;
+	public int numberOfRotations = 0;
+	public float speedUpTime = 0;
+}
+
+[System.Serializable]
 public class Score {
 	[HideInInspector]public IntBoolEvent onStarValueChange;
+	public List<SingleHighscore> highscores = new List<SingleHighscore> ();
 
 	public bool[] stars = { false, false, false };
 	public void ChangeStar(int which, bool value){
@@ -21,4 +30,27 @@ public class Score {
 			stars [i] = stars [i] || newStars [i];
 		}
 	}
+
+	public void AddHighscore(SingleHighscore highscore){
+		highscores.Add (highscore);
+		if (highscores.Count > 6) {
+			List<SingleHighscore> sorted = new List<SingleHighscore> ();
+			foreach (SingleHighscore high in highscores) {
+				sorted.Add (high);
+			}
+
+			sorted.Sort(delegate(SingleHighscore a, SingleHighscore b) {
+				return a.time.CompareTo(b.time);
+			});
+
+			for (int i = 0; i < highscores.Count; i++) {
+				if (highscores[i] == sorted [sorted.Count - 1]) {
+					highscores.RemoveAt (i);
+					break;
+				}
+			}
+		}
+	}
 }
+
+
