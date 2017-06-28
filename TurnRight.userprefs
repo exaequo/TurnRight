@@ -1,19 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Displays\LevelSelectDisplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SingleHighscoreDisplay.cs">
     <Files>
-      <File FileName="Assets\Scripts\Master\MasterController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Master\MasterController.cs" Line="125" Column="73" />
       <File FileName="Assets\Scripts\Displays\CarPaintDisplay.cs" Line="84" Column="48" />
       <File FileName="Assets\Scripts\Displays\CarDisplay.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BackgroundAnimatorControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Displays\LevelSelectDisplay.cs" Line="12" Column="44" />
-      <File FileName="Assets\Scripts\Displays\LevelDisplay.cs" Line="16" Column="28" />
-      <File FileName="Assets\Scripts\BallScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Master\LevelScript.cs" Line="114" Column="43" />
-      <File FileName="Assets\Scripts\Sound\SingleSound.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Sound\SoundManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Sound\ContinuousSound.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Displays\StartScreenDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Displays\LevelSelectDisplay.cs" Line="47" Column="48" />
+      <File FileName="Assets\Scripts\Displays\LevelDisplay.cs" Line="27" Column="42" />
+      <File FileName="Assets\Scripts\BallScript.cs" Line="6" Column="73" />
+      <File FileName="Assets\Scripts\Master\LevelScript.cs" Line="115" Column="90" />
+      <File FileName="Assets\Scripts\Score.cs" Line="36" Column="27" />
+      <File FileName="Assets\Scripts\Master\Progress.cs" Line="33" Column="40" />
+      <File FileName="Assets\Scripts\HighscoreDisplay.cs" Line="22" Column="6" />
+      <File FileName="Assets\Scripts\RotatingWheel.cs" Line="68" Column="62" />
+      <File FileName="Assets\Scripts\SingleHighscoreDisplay.cs" Line="17" Column="68" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

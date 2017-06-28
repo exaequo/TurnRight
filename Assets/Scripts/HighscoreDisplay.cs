@@ -6,7 +6,7 @@ public class HighscoreDisplay : MonoBehaviour {
 	public SingleHighscoreDisplay SingleHighscorePrefab;
 	public GameObject content;
 
-	public void Init(Score score){
+	public void Init(Score score, bool addedHighscore){
 		List<SingleHighscore> listOfHighscores = new List<SingleHighscore> ();
 
 		foreach (Transform child in content.transform) {
@@ -25,7 +25,7 @@ public class HighscoreDisplay : MonoBehaviour {
 			SingleHighscoreDisplay disp = (SingleHighscoreDisplay)Instantiate (SingleHighscorePrefab, content.transform, false);
 //			disp.transform.parent = content.transform;
 
-			disp.Init (highscore, highscore == score.highscores [score.highscores.Count - 1]);
+			disp.Init (highscore, addedHighscore && (highscore == score.highscores [score.highscores.Count - 1]));
 		}
 	}
 

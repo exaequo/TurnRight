@@ -31,7 +31,8 @@ public class Score {
 		}
 	}
 
-	public void AddHighscore(SingleHighscore highscore){
+	public bool AddHighscore(SingleHighscore highscore){
+		bool value = true;
 		highscores.Add (highscore);
 		if (highscores.Count > 6) {
 			List<SingleHighscore> sorted = new List<SingleHighscore> ();
@@ -45,11 +46,15 @@ public class Score {
 
 			for (int i = 0; i < highscores.Count; i++) {
 				if (highscores[i] == sorted [sorted.Count - 1]) {
+					if (highscores [i] == highscore) {
+						value = false;
+					}
 					highscores.RemoveAt (i);
 					break;
 				}
 			}
 		}
+		return value;
 	}
 }
 

@@ -43,7 +43,7 @@ public class MasterController : MonoBehaviour {
 	public bool CanLoadLevel{
 		get{ return canLoadLevel; }
 	}
-
+	bool addedHighscore = true;
 
 	void Awake () {
 		instance = this;
@@ -122,7 +122,7 @@ public class MasterController : MonoBehaviour {
 		progress.levelInfos[level.levelInfo.levelNumber].oldScore.ChangeStarScore(level.currentScore.stars);
 
 //		levelPrefabs [level.levelInfo.levelNumber].levelInfo.oldScore.highscores.Add (level.currentHighscore); 
-		progress.levelInfos[level.levelInfo.levelNumber].oldScore.AddHighscore (level.currentHighscore);
+		addedHighscore = progress.levelInfos[level.levelInfo.levelNumber].oldScore.AddHighscore (level.currentHighscore);
 
 		if (progress.levelInfos [level.levelInfo.levelNumber].time > level.currentLevelTime) {
 			value = true;
@@ -155,9 +155,8 @@ public class MasterController : MonoBehaviour {
 //		carPaintDisplay.Init (ballColors);
 
 		highscoreDiplay.gameObject.SetActive (true);
-		highscoreDiplay.Init (progress.levelInfos [currentLevel.levelInfo.levelNumber].oldScore);
-		//TODO here dać highscore display
-
+		highscoreDiplay.Init (progress.levelInfos [currentLevel.levelInfo.levelNumber].oldScore, addedHighscore);
+//		addedHighscore = true;
 	}
 
 	public void LoadNextLevel(){
