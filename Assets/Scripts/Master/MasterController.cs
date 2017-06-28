@@ -282,7 +282,7 @@ public class MasterController : MonoBehaviour {
 	}
 
 	public LevelScript GetNextLevelToLoad(){
-		return levelPrefabs [progress.lastWonLevel + 1];
+		return levelPrefabs [Mathf.Clamp(progress.lastWonLevel + 1, 0, levelPrefabs.Count-1)];
 	}
 	public void WaitToTurnOffMainMenuCanvas(float time){
 		canLoadLevel = false;
