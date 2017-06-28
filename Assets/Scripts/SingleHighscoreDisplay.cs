@@ -26,7 +26,7 @@ public class SingleHighscoreDisplay : MonoBehaviour {
 			timeText.text = highscore.time.ToString ("##.00");
 		}
 		if (speedUpTimeText != null) {
-			speedUpTimeText.text = highscore.speedUpTime.ToString ("##.00");
+			speedUpTimeText.text = highscore.speedUpTime.ToString ("#0.00");
 		}
 		if (rotationsText != null) {
 			rotationsText.text = highscore.numberOfRotations.ToString ();
