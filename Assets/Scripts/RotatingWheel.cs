@@ -65,7 +65,9 @@ public class RotatingWheel : MonoBehaviour {
 
 			dir = GetRotationDirection (swipeLength);
 
-			LevelScript.instance.currentHighscore.numberOfRotations++;
+			if (LevelScript.instance != null) {
+				LevelScript.instance.currentHighscore.numberOfRotations++;
+			}
 
 			//MasterInput.instance.DebugText ("Magnitude: " + swipeLength.magnitude.ToString () + "\ndirection: " + dir);
 		}

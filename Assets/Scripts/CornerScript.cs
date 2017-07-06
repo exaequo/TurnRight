@@ -9,6 +9,7 @@ public class CornerScript : MonoBehaviour {
 	public static int LEFT_DIRECTION = 2;
 	public static int BACK_DIRECTION = 3;
 
+	public bool DEBUG_MODE = false;
 
 	[Tooltip("Right,Up,Left,Bottom")]
 	public SinglePath[] paths = {null, null, null, null};
@@ -24,6 +25,9 @@ public class CornerScript : MonoBehaviour {
 		CornerScript corner = col.GetComponent<CornerScript> ();
 		if (corner != null) {
 			adjacentCorner = corner;
+			if (DEBUG_MODE) {
+				GetComponent<MeshRenderer> ().material.color = Color.green;
+			}
 //			Debug.Log ("Corner attached");
 		}
 
@@ -52,6 +56,9 @@ public class CornerScript : MonoBehaviour {
 		if (corner != null) {
 			if (corner == adjacentCorner) {
 				adjacentCorner = null;
+				if (DEBUG_MODE) {
+					GetComponent<MeshRenderer> ().material.color = Color.red;
+				}
 //				Debug.Log ("Corner detached");
 			}
 

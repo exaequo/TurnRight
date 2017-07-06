@@ -21,6 +21,9 @@ public class MasterInput : MonoBehaviour {
 	Vector2 touchStart;
 	Vector2 touchLast;
 
+	public bool useNewSystem = false;
+	public Camera mainCamera;
+
 	void Awake () {
 		if (instance == null) {
 			instance = this;
@@ -34,7 +37,11 @@ public class MasterInput : MonoBehaviour {
 	void Update() {
 		if (Input.touchCount > 0){
 			if (Input.GetTouch(0).phase == TouchPhase.Began) {
-				current = CastRayFromPosition(Input.GetTouch(0).position, true);
+				if (!useNewSystem) {
+					current = CastRayFromPosition (Input.GetTouch (0).position, true);
+				} else {
+					current = CastRayFromPositionNew (Input.GetTouch (0).position, true);
+				}
 				touchStart = Input.GetTouch (0).position;
 				touchLast = touchStart;
 				//DebugText ("Casting ray " + Input.GetTouch (0).position);
@@ -69,9 +76,6 @@ public class MasterInput : MonoBehaviour {
 		List<RaycastResult> objectsHit = new List<RaycastResult> ();
 		EventSystem.current.RaycastAll(cursor, objectsHit);
 
-//		float cameraWidth = Camera.main.ScreenToWorldPoint (new Vector2(Screen.width,0)).x - Camera.main.ScreenToWorldPoint (new Vector2(0,0)).x;
-
-
 		for (int i = 0; i < objectsHit.Count; i++) {
 
 			RectTransform rectTransform = objectsHit [i].gameObject.GetComponent<RectTransform> ();
@@ -92,17 +96,29 @@ public class MasterInput : MonoBehaviour {
 				int pixelX = Mathf.RoundToInt ((((localPoint.x + (rectTransform.rect.width / 2.0f)) / (rectTransform.rect.width)) * image.sprite.texture.width));
 				int pixelY = Mathf.RoundToInt ((((localPoint.y + (rectTransform.rect.height / 2.0f)) / (rectTransform.rect.height)) * image.sprite.texture.height));
 
-				//Debug.Log ("PIXEL " + new Vector2 (pixelX, pixelY));
-
 				if (image.sprite.texture.GetPixel (pixelX, pixelY).a != 0) {
 					return grabber;
 				}
-
-				//DebugText ("LOCAL POINT " + localPoint + "width: " + rectTransform.rect.width);
-
-
 			}
 		}
+		return null;
+	}
+
+	RotatingWheel CastRayFromPositionNew(Vector2 pos, bool withTouch){
+		RaycastHit hit;
+		Ray ray = mainCamera.ScreenPointToRay (pos);
+
+		if (Physics.Raycast (ray, out hit)) {
+
+			Transform objectHit = hit.transform;
+
+			RotatingWheel grabber = objectHit.GetComponent<RotatingWheel> ();
+
+			if (grabber != null) {
+				return grabber;
+			}
+		}
+
 		return null;
 	}
 

@@ -31,6 +31,7 @@ public class MasterController : MonoBehaviour {
 	public List<Color> ballColorCodes = new List<Color> ();
 	public GameObject showOnStartStartScreen;
 	public Transform levelParent;
+	public Transform newLevelParent;
 
 	public Image lastLevelImage;
 	public Text playLevelText;
@@ -69,19 +70,34 @@ public class MasterController : MonoBehaviour {
 	public void LoadLevel(LevelScript levelPref){
 		
 		levelSelectDisplay.gameObject.SetActive (false);
-		LevelScript testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.GetComponentInChildren<BackgroundAnimatorControl>().transform, false);
+		LevelScript testLevel;
+		if (levelPref.newGameplayApplied) {
+			testLevel = (LevelScript)Instantiate (levelPref);//, gameCanvas.GetComponentInChildren<BackgroundAnimatorControl>().transform, false);
+		} else {
+			testLevel = (LevelScript)Instantiate (levelPref, gameCanvas.GetComponentInChildren<BackgroundAnimatorControl>().transform, false);
+		}
 		currentLevel = testLevel;
-		testLevel.transform.SetSiblingIndex (0);
+		//testLevel.transform.SetSiblingIndex (0);
 
 		testLevel.SetupLevel ();
 		showOnStart.SetActive (true);
 		showOnStartStartScreen.SetActive (true);
 
-		if (levelParent != null) {
-			foreach (Transform child in levelParent) {
-				Destroy (child.gameObject);
+		if (!testLevel.newGameplayApplied) {
+			if (levelParent != null) {
+				foreach (Transform child in levelParent) {
+					Destroy (child.gameObject);
+				}
+				testLevel.transform.SetParent (levelParent);
 			}
-			testLevel.transform.SetParent (levelParent);
+		} else {
+			if (newLevelParent != null) {
+				foreach (Transform child in newLevelParent) {
+					Destroy (child.gameObject);
+				}
+				testLevel.transform.SetParent (newLevelParent);
+				testLevel.transform.localPosition = Vector3.zero;
+			}
 		}
 	}
 

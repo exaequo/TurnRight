@@ -6,6 +6,8 @@ using UnityEngine.Events;
 [System.Serializable()]public class BallEvent : UnityEvent<BallScript>{}
 
 public class BallScript : MonoBehaviour {
+	public bool newSystemBall = false;
+
 	[Range(0,10)]
 	public int ballNumber = 0;
 	public int followedPaths = 0;
@@ -33,7 +35,12 @@ public class BallScript : MonoBehaviour {
 	void Start () {
 
 		if (ballNumber < MasterController.instance.ballColorCodes.Count) {
-			GetComponent<SpriteRenderer> ().color = MasterController.instance.ballColorCodes [ballNumber];
+			if (!newSystemBall) {
+				GetComponent<SpriteRenderer> ().color = MasterController.instance.ballColorCodes [ballNumber];
+			} else {
+				GetComponentInChildren<MeshRenderer> ().material.color = MasterController.instance.ballColorCodes [ballNumber];
+			}
+
 		} else {
 			throw new UnityException ("Za duży numer: " + ballNumber +"/" + MasterController.instance.ballColorCodes.Count);
 		}

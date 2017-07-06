@@ -15,6 +15,7 @@ public class LevelScript : MonoBehaviour {
 
 	}
 
+	public bool newGameplayApplied = false;
 	public bool withBallOrderDisplay = false;
 
 	public static LevelScript instance;
@@ -171,7 +172,11 @@ public class LevelScript : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 		//MasterController.instance.ShowEndLevelScreen (currentScore.stars);
 		transform.SetAsLastSibling();
-		GetComponent<Animator> ().SetTrigger ("End");
+
+
+		if (GetComponent<Animator> () != null) {
+			GetComponent<Animator> ().SetTrigger ("End");
+		}
 	}
 
 	public void InformMasterAboutEnding(){
