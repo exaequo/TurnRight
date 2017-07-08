@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DEBUG\DestroyChildrenScript.cs" />
      <Compile Include="Assets\Pixelplacement\iTweenPath\iTweenPath.cs" />
      <Compile Include="Assets\Scripts\BackgroundAnimatorControl.cs" />
      <Compile Include="Assets\Scripts\BallScript.cs" />

@@ -146,7 +146,7 @@ public class LevelScript : MonoBehaviour {
 //				MasterInput.instance.DebugText ("GUT BALL");
 				if (ballOrderDisp != null) {
 					ballOrder.RemoveAt (0);
-					if (ballOrder.Count != null) {
+					if (ballOrder.Count > 0) {
 						SetCenterColorTo (MasterController.instance.ballColorCodes [ballOrder [0]]);
 					}
 					if (ballOrderDisp != null) {
