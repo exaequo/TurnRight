@@ -35,11 +35,8 @@ public class BallScript : MonoBehaviour {
 	void Start () {
 
 		if (ballNumber < MasterController.instance.ballColorCodes.Count) {
-			if (!newSystemBall) {
-				GetComponent<SpriteRenderer> ().color = MasterController.instance.ballColorCodes [ballNumber];
-			} else {
-				GetComponentInChildren<MeshRenderer> ().material.color = MasterController.instance.ballColorCodes [ballNumber];
-			}
+			
+			ChangeColor (MasterController.instance.ballColorCodes [ballNumber]);
 
 		} else {
 			throw new UnityException ("Za duży numer: " + ballNumber +"/" + MasterController.instance.ballColorCodes.Count);
@@ -105,5 +102,14 @@ public class BallScript : MonoBehaviour {
 			followedPaths--;
 		}
 		yield return null;
+	}
+
+	void ChangeColor(Color color){
+		if (!newSystemBall) {
+			GetComponent<SpriteRenderer> ().color = color;
+		} else {
+			GetComponentInChildren<MeshRenderer> ().material.color = color;
+			GetComponentInChildren<MeshRenderer> ().material.SetColor ("Shine Color", color);
+		}
 	}
 }

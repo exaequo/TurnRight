@@ -43,6 +43,7 @@ public class LevelScript : MonoBehaviour {
 	bool newHighscoreAchieved = false;
 
 	float speedChangeTimerStart = -1;
+	public MeshRenderer centerMesh;
 
 	void Awake () {
 		if (instance != null) {
@@ -89,6 +90,9 @@ public class LevelScript : MonoBehaviour {
 			ballOrderDisp = MasterController.instance.ballOrderDisplay;
 			ballOrderDisp.gameObject.SetActive (true);
 			ballOrderDisp.Init (ballOrder);
+			SetCenterColorTo (MasterController.instance.ballColorCodes [ballOrder [0]]);
+		} else {
+			SetCenterColorTo (MasterController.instance.ballColorCodes [balls[0].ballNumber]);
 		}
 
 //		if (ballOrderDisplay != null) {
@@ -142,6 +146,9 @@ public class LevelScript : MonoBehaviour {
 //				MasterInput.instance.DebugText ("GUT BALL");
 				if (ballOrderDisp != null) {
 					ballOrder.RemoveAt (0);
+					if (ballOrder.Count != null) {
+						SetCenterColorTo (MasterController.instance.ballColorCodes [ballOrder [0]]);
+					}
 					if (ballOrderDisp != null) {
 						StartCoroutine (ballOrderDisp.DestroyFirst ());
 					}
@@ -186,6 +193,12 @@ public class LevelScript : MonoBehaviour {
 	void SetStarsToTrue(){
 		for (int i = 0; i < 3; i++) {
 			currentScore.ChangeStar (i, true);
+		}
+	}
+
+	void SetCenterColorTo(Color color){
+		if (centerMesh != null) {
+			centerMesh.material.color = color * 0.75f;
 		}
 	}
 }
